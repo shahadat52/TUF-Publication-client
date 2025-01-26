@@ -57,7 +57,7 @@ const CartTable = ({ totalPrice }: { totalPrice: number }) => {
                 <h1 className="text-xl text-center uppercase font-bold">Tanjimul Ummah Foundation</h1>
                 <p className="text-center uppercase">Dhaka, Bangladesh</p>
                 <p className="text-center">01811473336</p>
-                <p className="text-center font-semibold text-xl uppercase mt-5">Sell Memo</p>
+                <p className="text-center font-semibold text-xl uppercase mt-5">Order Form</p>
                 <p className="text-center">Print on: {date.toLocaleDateString()} {date.toLocaleTimeString()} </p>
                 <div className="flex justify-between">
                     <div>
