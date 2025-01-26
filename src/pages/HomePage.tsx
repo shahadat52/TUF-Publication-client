@@ -3,7 +3,7 @@ import ProductCart from "../components/ProductCart";
 import { useGetProductsQuery } from "../redux/features/products/productsApi";
 
 const HomePage = () => {
-    const [category, setCategory] = useState("")
+    const [category, setCategory] = useState("Official")
     const [searchTerm, setSearchTerm] = useState("")
     const { data } = useGetProductsQuery({ searchTerm, category });
     const products = data?.data;
