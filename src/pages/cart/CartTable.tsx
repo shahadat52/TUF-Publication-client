@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { removeFromCart } from "../../redux/features/cart/cartSlice";
 import { useReactToPrint } from "react-to-print";
 import { useRef } from "react";
+import { IoMdPrint } from "react-icons/io";
 
 const CartTable = ({ totalPrice }: { totalPrice: number }) => {
 
@@ -63,15 +64,13 @@ const CartTable = ({ totalPrice }: { totalPrice: number }) => {
                     <div>
 
                         <p className="ml-6 text-lg">Invoice no: 01</p>
-                        <p className="ml-6 text-lg">Sold To: {user?.branch} </p>
+                        <p className="ml-6 text-lg">Order form: {user?.branch} </p>
                     </div>
                     <div>
                         <p className="text-2xl font-bold text-end uppercase mr-6">Invoice/bill</p>
-                        <p className="text-lg font-bold text-end uppercase mr-6">Sold Data: {date.toLocaleDateString()}</p>
+                        <p className="text-lg font-bold text-end uppercase mr-6">Order Data: {date.toLocaleDateString()}</p>
                     </div>
                 </div>
-
-
 
                 <div className="container mx-auto p-4">
                     <table className="min-w-full bg-white">
@@ -81,7 +80,7 @@ const CartTable = ({ totalPrice }: { totalPrice: number }) => {
                                 <th className="py-2 px-4 border-b text-start">Category</th>
                                 <th className="py-2 px-4 border-b text-start">Price</th>
                                 <th className="py-2 px-4 border-b text-start">Quantity</th>
-                                <th className="py-2 px-4 border-b text-start">Total</th>
+                                <th className="py-2 px-4 border-b text-start">Amount</th>
                                 <th className="no-print py-2 px-4 border-b text-start">Action</th>
                             </tr>
                         </thead>
@@ -112,9 +111,9 @@ const CartTable = ({ totalPrice }: { totalPrice: number }) => {
                     </div>
                     <button
                         onClick={() => reactToPrintFn()}
-                        className="no-print mt-4 px-4 py-2 bg-blue-500 text-white rounded"
+                        className="no-print flex justify-center items-center mt-4 px-4 py-2 bg-gray-300 text-black rounded"
                     >
-                        Print Invoice
+                        <IoMdPrint /> Print
                     </button>
                 </div>
             </div>

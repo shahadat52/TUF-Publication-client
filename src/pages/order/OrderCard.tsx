@@ -1,6 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { IoMdPrint } from "react-icons/io";
 import { TOrder } from "../../interface/order";
 import { TProduct } from "../../interface/products";
+import { useRef } from "react";
+import { useReactToPrint } from "react-to-print";
+import { useUpdateStatusMutation } from "../../redux/features/order/orderApi";
+
 
 type OrderCardProps = {
     order: TOrder;
@@ -9,9 +14,48 @@ type OrderCardProps = {
 
 
 const OrderCard = ({ order, index }: OrderCardProps & { index: number }) => {
+    const pageStyle = `
+    @page {
+      size: A4 ;
+      margin: 20mm;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      -webkit-print-color-adjust: exact;
+    }
+    h1 {
+      color: black;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    table, th, td {
+      border: 1px solid black;
+    }
+    th, td {
+      padding: 8px;
+      text-align: left;
+    }
+    /* Hide elements with the "no-print" class when printing */
+    .no-print {
+      display: none;
+    }
+  `;
+    const contentRef = useRef<HTMLTableRowElement>(null);
+    const reactToPrintFn = useReactToPrint({ contentRef, documentTitle: '', pageStyle });
+    const [updateStatus] = useUpdateStatusMutation()
+
+
+    const handleStatusUpdate = (id: string) => {
+
+        updateStatus(id)
+    }
+
     return (
 
-        <tr className="border-2 p-5 text-justify">
+        <tr ref={contentRef} className="border-2 p-5 text-justify">
             <th>{index + 1}</th>
             <th>{order.branchName}</th>
             <th>{order?.address}</th>
@@ -19,7 +63,13 @@ const OrderCard = ({ order, index }: OrderCardProps & { index: number }) => {
             <td> {order.products.map((product: TProduct) => <li>{product.name} </li>)}</td>
             <td> {order.products.map((product: TProduct) => <p className="text-">{product.quantity} </p>)}</td>
             <td> {order.totalPrice}tk</td>
-            <td> {order.status}</td>
+            <td className="no-print"><button onClick={() => handleStatusUpdate(order?._id)} className="btn btn-primary" disabled={order.status === 'courier'}> {order.status}</button></td>
+            <td className="no-print"> <button
+                onClick={() => reactToPrintFn()}
+                className="no-print mt-1 px-1 py-1 text-2xl text-black rounded"
+            >
+                <IoMdPrint />
+            </button></td>
         </tr>
 
 

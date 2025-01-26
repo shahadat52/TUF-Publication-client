@@ -65,7 +65,7 @@ const ProductCart = ({ products, searchTerm, setSearchTerm }: { products: TProd[
                         <th className="py-2 px-4 border-b text-start">Name</th>
                         <th className="py-2 px-4 border-b text-start">Price</th>
                         <th className="py-2 px-4 border-b text-start">Quantity</th>
-                        <th className="py-2 px-4 border-b text-start">Total</th>
+                        <th className="py-2 px-4 border-b text-start">Amount</th>
                         <th className="py-2 px-4 border-b text-end">Action</th>
                     </tr>
                 </thead>
