@@ -52,8 +52,8 @@ const CartPage = () => {
     return (
         <div className="grid grid-cols-3">
             <div className="col-span-2">
-                <CartTable />
-                <p className="flex justify-around   text-xl font-semibold  "><span>Total amount:</span><span className="text-red-500 text-2xl "> {totalPrice}/-</span></p>
+                <CartTable totalPrice={totalPrice} />
+
 
             </div>
 
@@ -68,6 +68,7 @@ const CartPage = () => {
                     </div>
                 }
             </div>
+
         </div>
     );
 };

@@ -1,16 +1,14 @@
 import { useState } from "react";
 import { useAppDispatch } from "../redux/hooks";
 import { addToCart } from "../redux/features/cart/cartSlice";
-import { useGetProductsQuery } from "../redux/features/products/productsApi";
 import { TProd } from "../interface/TProd";
 
-const ProductCart = () => {
-    const [searchTerm, setSearchTerm] = useState("")
+const ProductCart = ({ products, searchTerm, setSearchTerm }: { products: TProd[], searchTerm: string, setSearchTerm: React.Dispatch<React.SetStateAction<string>> }) => {
+
     const [quantities, setQuantities] = useState<{ [key: string]: number }>({});
     const dispatch = useAppDispatch();
 
-    const { data } = useGetProductsQuery({ searchTerm });
-    const products = data?.data;
+
     const handleQuantityChange = (productId: string, value: number) => {
         setQuantities((prev) => ({
             ...prev,

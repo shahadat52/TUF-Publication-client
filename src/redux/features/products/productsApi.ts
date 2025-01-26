@@ -13,13 +13,12 @@ const productsApi = baseApi.injectEndpoints({
         }),
 
         getProducts: builder.query({
-            query: (searchTerm) => {
-                console.log(searchTerm);
+            query: ({ searchTerm, category }) => {
+                console.log({ searchTerm, category });
                 return {
-
-                    url: "/products",
+                    url: `/products?category=${category}`,
                     method: "GET",
-                    params: searchTerm
+                    params: { "searchTerm": searchTerm }
                 }
             },
             providesTags: ["products"]

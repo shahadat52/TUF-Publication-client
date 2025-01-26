@@ -2,48 +2,90 @@
 import { GiCancel } from "react-icons/gi";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { removeFromCart } from "../../redux/features/cart/cartSlice";
+import { useReactToPrint } from "react-to-print";
+import { useRef } from "react";
 
-const CartTable = () => {
-    const products = useAppSelector((state) => state.auth.cart.products)
-    const dispatch = useAppDispatch()
+const CartTable = ({ totalPrice }: { totalPrice: number }) => {
+    const products = useAppSelector((state) => state.auth.cart.products);
+    const user = useAppSelector((state) => state.auth.auth.user) as { branch: string } | null;
+    console.log(user);
+    const dispatch = useAppDispatch();
+    const date = new Date();
+    const contentRef = useRef<HTMLDivElement>(null);
+    const reactToPrintFn = useReactToPrint({ contentRef });
 
     const handleRemoveFromCart = (id: string) => {
-        console.log(id);
-        dispatch(removeFromCart(id))
-    }
+        dispatch(removeFromCart(id));
+    };
+
     return (
-        <div className="container mx-auto p-4 ">
+        <div>
+            {/* Ensure the ref is attached to the main container you want to print */}
+            <div ref={contentRef} className="p-4">
+                <h1 className="text-xl text-center uppercase font-bold">Tanjimul Ummah Foundation</h1>
+                <p className="text-center uppercase">Dhaka, Bangladesh</p>
+                <p className="text-center">01811473336</p>
+                <p className="text-center font-semibold text-xl uppercase mt-5">Sell Memo</p>
+                <p className="text-center">Print on: {date.toLocaleDateString()} {date.toLocaleTimeString()} </p>
+                <div className="flex justify-between">
+                    <div>
 
-            <table className="min-w-full bg-white">
-                <thead className='bg-gray-500 '>
-                    <tr className=' text-white '>
-                        <th className="py-2 px-4 border-b text-start ">Name</th>
-                        <th className="py-2 px-4 border-b text-start">category</th>
-                        <th className="py-2 px-4 border-b text-start">Price</th>
-                        <th className="py-2 px-4 border-b text-start">Quantity</th>
-                        <th className="py-2 px-4 border-b text-start">Total</th>
-                        <th className="py-2 px-4 border-b text-start">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {products?.map((product: any) => (
-                        <tr key={product._id}>
-                            <td className="py-2 px-4 border-b  text-start font-bold">{product?.name}</td>
-                            <td className="py-2 px-4 border-b text-start">{product?.category}</td>
-                            <td className="py-2 px-4 border-b text-start">{product?.price}</td>
-                            <td className="py-2 px-4 border-b text-start">
-                                {product?.quantity}
-                            </td>
-                            <td className="py-2 px-4 border-b text-start">
-                                {product?.total}
-                            </td>
-                            <td onClick={() => handleRemoveFromCart(product?.productId)} className="py-2 px-4 border-b text-end text-red-500"><p className="text-2xl"><GiCancel /></p></td>
+                        <p className="ml-6 text-lg">Invoice no: 01</p>
+                        <p className="ml-6 text-lg">Sold To: {user?.branch} </p>
+                    </div>
+                    <div>
+                        <p className="text-2xl font-bold text-end uppercase mr-6">Invoice/bill</p>
+                        <p className="text-lg font-bold text-end uppercase mr-6">Sold Data: {date.toLocaleDateString()}</p>
+                    </div>
+                </div>
 
-                        </tr>
-                    ))}
-                </tbody>
 
-            </table>
+
+                <div className="container mx-auto p-4">
+                    <table className="min-w-full bg-white">
+                        <thead className="bg-gray-500">
+                            <tr className="text-white">
+                                <th className="py-2 px-4 border-b text-start">Name</th>
+                                <th className="py-2 px-4 border-b text-start">Category</th>
+                                <th className="py-2 px-4 border-b text-start">Price</th>
+                                <th className="py-2 px-4 border-b text-start">Quantity</th>
+                                <th className="py-2 px-4 border-b text-start">Total</th>
+                                <th className="py-2 px-4 border-b text-start">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {products?.map((product: any) => (
+                                <tr key={product._id}>
+                                    <td className="py-2 px-4 border-b text-start font-bold">{product?.name}</td>
+                                    <td className="py-2 px-4 border-b text-start">{product?.category}</td>
+                                    <td className="py-2 px-4 border-b text-start">{product?.price}</td>
+                                    <td className="py-2 px-4 border-b text-start">{product?.quantity}</td>
+                                    <td className="py-2 px-4 border-b text-start">{product?.total}</td>
+                                    <td
+                                        onClick={() => handleRemoveFromCart(product?.productId)}
+                                        className="py-2 px-4 border-b text-end text-red-500"
+                                    >
+                                        <p className="text-2xl">
+                                            <GiCancel />
+                                        </p>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+
+                    </table>
+                    <div className=" flex justify-around  w-full">
+                        <p className="flex  text-xl font-semibold  ">Total amount:</p>
+                        <p><span className="text-red-500 text-2xl ml-32 "> {totalPrice}/-</span></p>
+                    </div>
+                    <button
+                        onClick={() => reactToPrintFn()}
+                        className="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
+                    >
+                        Print Invoice
+                    </button>
+                </div>
+            </div>
         </div>
     );
 };
