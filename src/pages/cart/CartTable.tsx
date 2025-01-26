@@ -6,13 +6,45 @@ import { useReactToPrint } from "react-to-print";
 import { useRef } from "react";
 
 const CartTable = ({ totalPrice }: { totalPrice: number }) => {
+
+    const pageStyle = `
+    @page {
+      size: A4;
+      margin: 20mm;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      -webkit-print-color-adjust: exact;
+    }
+    h1 {
+      color: blue;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    table, th, td {
+      border: 1px solid black;
+    }
+    th, td {
+      padding: 8px;
+      text-align: left;
+    }
+    /* Hide elements with the "no-print" class when printing */
+    .no-print {
+      display: none;
+    }
+  `;
+
+
     const products = useAppSelector((state) => state.auth.cart.products);
     const user = useAppSelector((state) => state.auth.auth.user) as { branch: string } | null;
     console.log(user);
     const dispatch = useAppDispatch();
     const date = new Date();
     const contentRef = useRef<HTMLDivElement>(null);
-    const reactToPrintFn = useReactToPrint({ contentRef });
+    const reactToPrintFn = useReactToPrint({ contentRef, documentTitle: '', pageStyle });
 
     const handleRemoveFromCart = (id: string) => {
         dispatch(removeFromCart(id));
@@ -50,7 +82,7 @@ const CartTable = ({ totalPrice }: { totalPrice: number }) => {
                                 <th className="py-2 px-4 border-b text-start">Price</th>
                                 <th className="py-2 px-4 border-b text-start">Quantity</th>
                                 <th className="py-2 px-4 border-b text-start">Total</th>
-                                <th className="py-2 px-4 border-b text-start">Action</th>
+                                <th className="no-print py-2 px-4 border-b text-start">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -63,7 +95,7 @@ const CartTable = ({ totalPrice }: { totalPrice: number }) => {
                                     <td className="py-2 px-4 border-b text-start">{product?.total}</td>
                                     <td
                                         onClick={() => handleRemoveFromCart(product?.productId)}
-                                        className="py-2 px-4 border-b text-end text-red-500"
+                                        className="no-print py-2 px-4 border-b text-end text-red-500"
                                     >
                                         <p className="text-2xl">
                                             <GiCancel />
@@ -74,13 +106,13 @@ const CartTable = ({ totalPrice }: { totalPrice: number }) => {
                         </tbody>
 
                     </table>
-                    <div className=" flex justify-around  w-full">
-                        <p className="flex  text-xl font-semibold  ">Total amount:</p>
-                        <p><span className="text-red-500 text-2xl ml-32 "> {totalPrice}/-</span></p>
+                    <div className=" flex justify-between  w-full ">
+                        <p className="flex  text-xl font-semibold ml-4 ">Amount:</p>
+                        <p><span className="text-red-500 text-xl mr-1 "> {totalPrice}/-</span></p>
                     </div>
                     <button
                         onClick={() => reactToPrintFn()}
-                        className="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
+                        className="no-print mt-4 px-4 py-2 bg-blue-500 text-white rounded"
                     >
                         Print Invoice
                     </button>
