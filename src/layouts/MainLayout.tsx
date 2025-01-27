@@ -11,7 +11,7 @@ const MainLayout = () => {
     const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 
     return (
-        <div>
+        <div className='max-w-[1550px] mx-auto'>
             <Navbar />
             <div className="max-w-[1550px] mx-auto min-h-screen ">
                 <Outlet />
@@ -25,7 +25,7 @@ const MainLayout = () => {
                     <p className="text-green-700 fixed bottom-4 right-4 text-[60px] "><FaWhatsappSquare /></p>
                 </a>
             </div>
-            <hr />
+
             <Footer />
         </div>
 
