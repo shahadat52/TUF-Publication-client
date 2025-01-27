@@ -111,7 +111,7 @@ const CartTable = ({ totalPrice }: { totalPrice: number }) => {
                     </div>
                     <button
                         onClick={() => reactToPrintFn()}
-                        className="no-print flex justify-center items-center mt-4 px-4 py-2 bg-gray-300 text-black rounded"
+                        className=" no-print flex justify-center items-center mt-4 px-4 py-2 bg-gray-300 text-black rounded"
                     >
                         <IoMdPrint /> Print
                     </button>

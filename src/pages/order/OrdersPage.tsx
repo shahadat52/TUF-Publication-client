@@ -32,6 +32,15 @@ const OrdersPage = () => {
       padding: 8px;
       text-align: left;
     }
+    .print-only {
+      display: none;
+    }
+    @media print {
+    .print-only {
+      display: block;
+      }
+    }
+
     /* Hide elements with the "no-print" class when printing */
     .no-print {
       display: none;
@@ -57,11 +66,13 @@ const OrdersPage = () => {
                 <IoMdPrint /> Print
             </button>
             <div ref={contentRef} className="p-4">
-                <h1 className="text-xl text-center uppercase font-bold">Tanzimul Ummah Foundation</h1>
+
+                <h1 className=" text-xl text-center uppercase font-bold">Tanzimul Ummah Foundation</h1>
                 <h1 className="text-sm text-center uppercase font-bold">publication department</h1>
                 <p className="text-center uppercase">Dhaka, Bangladesh</p>
                 <p className="text-center font-semibold text-xl uppercase mt-5">All Orders</p>
                 <p className="text-center">Print on: {date.toLocaleDateString()} {date.toLocaleTimeString()} </p>
+
 
 
                 <div className="overflow-x-auto">

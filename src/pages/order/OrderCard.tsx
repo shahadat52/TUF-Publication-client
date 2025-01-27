@@ -38,6 +38,14 @@ const OrderCard = ({ order, index }: OrderCardProps & { index: number }) => {
       padding: 8px;
       text-align: left;
     }
+     .print-only {
+      display: none;
+    }
+    @media print {
+      .print-only {
+        display: block;
+      }
+    }
     /* Hide elements with the "no-print" class when printing */
     .no-print {
       display: none;
@@ -54,25 +62,27 @@ const OrderCard = ({ order, index }: OrderCardProps & { index: number }) => {
     }
 
     return (
+        <>
 
-        <tr ref={contentRef} className="border-2 p-5 text-justify">
-            <th>{index + 1}</th>
-            <th>{order.branchName}</th>
-            <th>{order?.address}</th>
-            <td> {order.phone}</td>
-            <td> {order.products.map((product: TProduct) => <li>{product.name} </li>)}</td>
-            <td> {order.products.map((product: TProduct) => <p className="text-">{product.quantity} </p>)}</td>
-            <td> {order.totalPrice}tk</td>
-            <td className="no-print"><button onClick={() => handleStatusUpdate(order?._id)} className="btn btn-primary" disabled={order.status === 'courier'}> {order.status}</button></td>
-            <td className="no-print"> <button
-                onClick={() => reactToPrintFn()}
-                className="no-print mt-1 px-1 py-1 text-2xl text-black rounded"
-            >
-                <IoMdPrint />
-            </button></td>
-        </tr>
+            <tr ref={contentRef} className="border-2 p-5 text-justify">
 
+                <th>{index + 1}</th>
+                <th>{order.branchName}</th>
+                <th>{order?.address}</th>
+                <td> {order.phone}</td>
+                <td> {order.products.map((product: TProduct) => <li>{product.name} </li>)}</td>
+                <td> {order.products.map((product: TProduct) => <p className="text-">{product.quantity} </p>)}</td>
+                <td> {order.totalPrice}tk</td>
+                <td className="no-print"><button onClick={() => handleStatusUpdate(order?._id)} className="btn btn-primary" disabled={order.status === 'courier'}> {order.status}</button></td>
+                <td className="no-print"> <button
+                    onClick={() => reactToPrintFn()}
+                    className="no-print mt-1 px-1 py-1 text-2xl text-black rounded"
+                >
+                    <IoMdPrint />
+                </button></td>
+            </tr>
 
+        </>
 
     );
 };
