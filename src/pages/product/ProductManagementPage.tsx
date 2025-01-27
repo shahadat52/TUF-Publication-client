@@ -1,13 +1,13 @@
 import { useState } from "react";
 import Loading from "../../components/Loading";
-// import { TProduct } from "../../interface/products";
-import { useGetProductsQuery } from "../../redux/features/products/productsApi";
-// import ProductCart from "./ProductCart";
 import AddProductModal from "./AddProductModal";
+import { TProduct } from "../../interface/products";
+import ProductCart from "./ProductCart";
+import { useGetAllProductsQuery } from "../../redux/features/products/productsApi";
 
 const ProductManagementPage = () => {
     const [isModalOpen, setModalOpen] = useState(false);
-    const { data, isLoading } = useGetProductsQuery(undefined);
+    const { data, isLoading } = useGetAllProductsQuery(undefined);
     const products = data?.data;
     if (isLoading) {
         return <Loading />
@@ -36,18 +36,16 @@ const ProductManagementPage = () => {
                             <th>No</th>
                             <th>Name</th>
                             <th>Price</th>
-                            <th>Size</th>
-                            <th>image</th>
-                            <th>Rating</th>
-                            <th>Sub-Category</th>
+                            <th>ProductId</th>
+                            <th>Category</th>
+                            <th>Update</th>
                             <th>Action</th>
-
                         </tr>
                     </thead>
                     <tbody>
-                        {/* {
+                        {
                             products?.map((product: TProduct, index: number) => (<ProductCart key={product._id} index={index} product={product} />))
-                        } */}
+                        }
 
                     </tbody>
 

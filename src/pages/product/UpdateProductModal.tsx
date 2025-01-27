@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useForm, SubmitHandler } from "react-hook-form";
-import { useCreateProductMutation } from "../../redux/features/products/productsApi";
+import { useUpdateProductDataMutation } from "../../redux/features/products/productsApi";
 import { toast } from "react-toastify";
 import Loading from "../../components/Loading";
 import { useState } from "react";
@@ -7,7 +8,7 @@ import { TProd } from "../../interface/TProd";
 
 
 
-const AddProductModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
+const UpdateProductModal = ({ isOpen, onClose, product }: { isOpen: boolean; product: any; onClose: () => void }) => {
     const [isLoading, setIsLoading] = useState(false)
     const {
         register,
@@ -15,27 +16,28 @@ const AddProductModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => 
         formState: { errors },
         reset,
     } = useForm<TProd>();
-    const [addProduct] = useCreateProductMutation()
+    const [updateProductData] = useUpdateProductDataMutation()
 
     const onSubmit: SubmitHandler<TProd> = async (data) => {
         setIsLoading(true)
         const productData = {
+            _id: product._id,
             name: data.name,
             price: data.price,
             productId: data.productId,
             category: data.category
         };
 
-        const result = await addProduct(productData)
+        const result = await updateProductData(productData) as any
         if (result?.data) {
             setIsLoading(false)
-            toast.success("Successfully Added")
+            toast.success("Update successfully")
             reset();
             onClose();
         }
         if (result?.error) {
             setIsLoading(false)
-            toast.error("Failed")
+            toast.error("Update failed")
         };
     };
 
@@ -55,6 +57,7 @@ const AddProductModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => 
                         <div>
                             <label className="block text-sm font-medium">Product Name</label>
                             <input
+                                defaultValue={product.name}
                                 type="text"
                                 {...register("name", { required: "Product name is required" })}
                                 className="w-full px-3 py-2 border rounded-md focus:ring focus:ring-blue-500 focus:outline-none"
@@ -66,6 +69,7 @@ const AddProductModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => 
                         <div>
                             <label className="block text-sm font-medium">Product ID</label>
                             <input
+                                defaultValue={product.productId}
                                 type="text"
                                 {...register("productId", { required: "productId is required" })}
                                 className="w-full px-3 py-2 border rounded-md focus:ring focus:ring-blue-500 focus:outline-none"
@@ -76,6 +80,7 @@ const AddProductModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => 
                         <div>
                             <label className="block text-sm font-medium">Price</label>
                             <input
+                                defaultValue={product.price}
                                 type="number"
                                 step="0.01"
                                 {...register("price", { required: "Price is required", min: 0 })}
@@ -86,6 +91,7 @@ const AddProductModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => 
                         <div>
                             <label className="block text-sm font-medium">Category</label>
                             <input
+                                defaultValue={product.category}
                                 type="text"
                                 {...register("category", { required: "Category is required" })}
                                 className="w-full px-3 py-2 border rounded-md focus:ring focus:ring-blue-500 focus:outline-none"
@@ -113,7 +119,7 @@ const AddProductModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => 
                                 type="submit"
                                 className="ml-2 px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600"
                             >
-                                Add Product
+                                Update
                             </button>
                         }
                     </div>
@@ -123,6 +129,6 @@ const AddProductModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => 
     );
 };
 
-export default AddProductModal;
+export default UpdateProductModal;
 
 
