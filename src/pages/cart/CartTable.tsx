@@ -75,7 +75,7 @@ const CartTable = ({ totalPrice }: { totalPrice: number }) => {
                         <p className="ml-6 text-lg">Order form: {user?.branch} </p>
                     </div>
                     <div>
-                        <p className="text-2xl font-bold text-end uppercase mr-6">Invoice/bill</p>
+                        <p className="text-xl lg:text-2xl font-bold text-end uppercase mr-6">Invoice/bill</p>
                         <p className="text-lg font-bold text-end uppercase mr-6">Order Data: {date.toLocaleDateString()}</p>
                     </div>
                 </div>

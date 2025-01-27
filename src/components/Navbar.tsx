@@ -30,7 +30,7 @@ const Navbar = () => {
                         <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
-                                className="h-5 w-5"
+                                className="h-5 w-5 s"
                                 fill="none"
                                 viewBox="0 0 24 24"
                                 stroke="currentColor">
@@ -57,8 +57,8 @@ const Navbar = () => {
                             }
                         </ul>
                     </div>
-                    <a className="flex  items-center text-lg text-">
-                        <img src="/logo.png" className='w-[70px] h-16 rounded-xl mx-1 ' alt="Logo" />
+                    <a className="flex  items-center text-sm lg:text-lg  text-">
+                        <img src="/logo.png" className='w-[35px] h-8 lg:w-[70px] lg:h-16 rounded-xl mx-1 ' alt="Logo" />
                         <span className=" font-semibold"> TUF - Publication Department </span>
                     </a>
                 </div>
@@ -81,8 +81,8 @@ const Navbar = () => {
 
 
                     <div className="flex ">
-                        <NavLink to={`/cart`} className="text-4xl"><FaShoppingCart /></NavLink>
-                        <p className="mr-8 mt-[-15px] text-green-500 font-bold text-2xl">{length}</p>
+                        <NavLink to={`/cart`} className="text-2xl lg:text-4xl"><FaShoppingCart /></NavLink>
+                        <p className="mr-2 lg:mr-8 mt-[-15px] text-green-500 font-bold text-2xl">{length}</p>
                     </div>
 
 
