@@ -2,8 +2,9 @@ import { useState } from "react";
 import { useAppDispatch } from "../redux/hooks";
 import { addToCart } from "../redux/features/cart/cartSlice";
 import { TProd } from "../interface/TProd";
+import Loading from "./Loading";
 
-const ProductCart = ({ products, searchTerm, setSearchTerm }: { products: TProd[], searchTerm: string, setSearchTerm: React.Dispatch<React.SetStateAction<string>> }) => {
+const ProductTable = ({ products, searchTerm, setSearchTerm, isLoading }: { products: TProd[], searchTerm: string, setSearchTerm: React.Dispatch<React.SetStateAction<string>>, isLoading: boolean }) => {
 
     const [quantities, setQuantities] = useState<{ [key: string]: number }>({});
     const dispatch = useAppDispatch();
@@ -70,6 +71,7 @@ const ProductCart = ({ products, searchTerm, setSearchTerm }: { products: TProd[
                     </tr>
                 </thead>
                 <tbody>
+                    {isLoading && <Loading />}
                     {products?.map((product: TProd) => (
                         <tr key={product._id}>
                             <td className="py-1 px-4 border-b text-start font-bold">{product.name}</td>
@@ -104,4 +106,4 @@ const ProductCart = ({ products, searchTerm, setSearchTerm }: { products: TProd[
     );
 };
 
-export default ProductCart;
+export default ProductTable;

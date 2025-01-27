@@ -1,31 +1,93 @@
 import { useState } from "react";
-import ProductCart from "../components/ProductCart";
 import { useGetProductsQuery } from "../redux/features/products/productsApi";
+import ProductTable from "../components/ProductTable";
 
 const HomePage = () => {
-    const [category, setCategory] = useState("Official")
-    const [searchTerm, setSearchTerm] = useState("")
-    const { data } = useGetProductsQuery({ searchTerm, category });
+    const [category, setCategory] = useState("Official");
+    const [searchTerm, setSearchTerm] = useState("");
+    const { data, isLoading } = useGetProductsQuery({ searchTerm, category });
     const products = data?.data;
-    console.log(category);
+
+
+
     return (
-        <div className="grid grid-cols-6">
-            <div className="col-span-1 bg-gray-100 ">
-                <p onClick={() => setCategory('Official')} className="mt-8 pl-8 mx-2 uppercase text-lg font-semibold border hover:border-gray-500 hover:bg-primary rounded-lg">Official</p>
-                <p onClick={() => setCategory('Academic')} className="mt-1 pl-8 mx-2 uppercase text-lg font-semibold border hover:border-gray-500 hover:bg-primary rounded-lg">Academic</p>
-                <p onClick={() => setCategory('Books')} className="mt-1 pl-8 mx-2 uppercase text-lg font-semibold border hover:border-gray-500 hover:bg-primary rounded-lg">Books</p>
-                <p onClick={() => setCategory('Register')} className="mt-1 pl-8 mx-2 uppercase text-lg font-semibold border hover:border-gray-500 hover:bg-primary rounded-lg">Register</p>
-                <p onClick={() => setCategory('Accounts')} className="mt-1 pl-8 mx-2 uppercase text-lg font-semibold border hover:border-gray-500 hover:bg-primary rounded-lg">Accounts</p>
-                <p onClick={() => setCategory('Magazine')} className="mt-1 pl-8 mx-2 uppercase text-lg font-semibold border hover:border-gray-500 hover:bg-primary rounded-lg">Magazine</p>
-                <p onClick={() => setCategory('Other')} className="mt-1 pl-8 mx-2 uppercase text-lg font-semibold border hover:border-gray-500 hover:bg-primary rounded-lg">Others</p>
+        <div className="grid grid-cols-1 md:grid-cols-6 gap-4">
+            {/* Sidebar */}
+            <div className="col-span-1 md:col-span-1 bg-gray-100 p-4">
+                <p
+                    onClick={() => {
+                        setCategory('Official')
+                        setSearchTerm('')
+                    }}
+                    className="mt-2 mx-2 md:mt-8 pl-4 py-2  uppercase text-sm md:text-lg font-semibold border hover:border-gray-500 hover:bg-primary rounded-lg cursor-pointer"
+                >
+                    Official
+                </p>
+                <p
+                    onClick={() => {
+                        setCategory('Academic')
+                        setSearchTerm('')
+                    }}
+                    className="mt-2 pl-4 py-2 mx-2 uppercase text-sm md:text-lg font-semibold border hover:border-gray-500 hover:bg-primary rounded-lg cursor-pointer"
+                >
+                    Academic
+                </p>
+                <p
+                    onClick={() => {
+                        setCategory('Books')
+                        setSearchTerm('')
+                    }}
+                    className="mt-2 pl-4 py-2 mx-2 uppercase text-sm md:text-lg font-semibold border hover:border-gray-500 hover:bg-primary rounded-lg cursor-pointer"
+                >
+                    Books
+                </p>
+                <p
+                    onClick={() => {
+                        setCategory('Register')
+                        setSearchTerm('')
+                    }}
+                    className="mt-2 pl-4 py-2 mx-2 uppercase text-sm md:text-lg font-semibold border hover:border-gray-500 hover:bg-primary rounded-lg cursor-pointer"
+                >
+                    Register
+                </p>
+                <p
+                    onClick={() => {
+                        setCategory('Accounts')
+                        setSearchTerm('')
+                    }}
+                    className="mt-2 pl-4 py-2 mx-2 uppercase text-sm md:text-lg font-semibold border hover:border-gray-500 hover:bg-primary rounded-lg cursor-pointer"
+                >
+                    Accounts
+                </p>
+                <p
+                    onClick={() => {
+                        setCategory('Magazine')
+                        setSearchTerm('')
+                    }}
+                    className="mt-2 pl-4 py-2 mx-2 uppercase text-sm md:text-lg font-semibold border hover:border-gray-500 hover:bg-primary rounded-lg cursor-pointer"
+                >
+                    Magazine
+                </p>
+                <p
+                    onClick={() => {
+                        setCategory('Other')
+                        setSearchTerm('')
+                    }}
+                    className="mt-2 pl-4 py-2 mx-2 uppercase text-sm md:text-lg font-semibold border hover:border-gray-500 hover:bg-primary rounded-lg cursor-pointer"
+                >
+                    Others
+                </p>
             </div>
-            <div className="col-span-4  ">
-                <ProductCart products={products} searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-            </div>
-            <div className="col-span-1 bg-gray-100  ">
 
+            {/* Product Section */}
+            <div className="col-span-1 md:col-span-4 p-4">
+                <ProductTable products={products} searchTerm={searchTerm} setSearchTerm={setSearchTerm} isLoading={isLoading} />
             </div>
 
+            {/* Optional Right Sidebar */}
+            <div className="hidden md:block col-span-1 bg-gray-100 p-4">
+                {/* Add content or leave it as a placeholder */}
+            </div>
         </div>
     );
 };

@@ -6,6 +6,7 @@ export type TOrder = {
     status: 'pending' | 'approved' | 'courier';
     totalPrice: number;
     phone: string;
+    createdAt: Date
 
 
 }

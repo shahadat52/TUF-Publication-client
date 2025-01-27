@@ -10,7 +10,7 @@ const CartTable = ({ totalPrice }: { totalPrice: number }) => {
 
     const pageStyle = `
     @page {
-      size: A4;
+      size: A4 ;
       margin: 20mm;
     }
     body {
@@ -19,7 +19,7 @@ const CartTable = ({ totalPrice }: { totalPrice: number }) => {
       -webkit-print-color-adjust: exact;
     }
     h1 {
-      color: blue;
+      color: black;
     }
     table {
       width: 100%;
@@ -31,6 +31,14 @@ const CartTable = ({ totalPrice }: { totalPrice: number }) => {
     th, td {
       padding: 8px;
       text-align: left;
+    }
+     .print-only {
+      display: none;
+    }
+    @media print {
+      .print-only {
+        display: block;
+      }
     }
     /* Hide elements with the "no-print" class when printing */
     .no-print {
@@ -109,12 +117,14 @@ const CartTable = ({ totalPrice }: { totalPrice: number }) => {
                         <p className="flex  text-xl font-semibold ml-4 ">Amount:</p>
                         <p><span className="text-red-500 text-xl mr-1 "> {totalPrice}/-</span></p>
                     </div>
-                    <button
-                        onClick={() => reactToPrintFn()}
-                        className=" no-print flex justify-center items-center mt-4 px-4 py-2 bg-gray-300 text-black rounded"
-                    >
-                        <IoMdPrint /> Print
-                    </button>
+                    <div className="no-print">
+                        <button
+                            onClick={() => reactToPrintFn()}
+                            className="no-print flex justify-center items-center mt-4 px-4 py-2 bg-gray-300 text-black rounded"
+                        >
+                            <IoMdPrint /> Print
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

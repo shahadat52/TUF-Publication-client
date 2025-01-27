@@ -15,7 +15,7 @@ const Navbar = () => {
             <NavLink to={`/`}>PUBLICATION</NavLink>
         </li>,
         <li className="mr-8 text-lg">
-            <NavLink to={`/gift`}>GIFT</NavLink>
+            <NavLink to={`/gift`}>ANNUAL PRIZE</NavLink>
         </li>
     ];
 
@@ -50,6 +50,11 @@ const Navbar = () => {
                                     <NavLink to={`/dashboard`}>DASHBOARD</NavLink>
                                 </li>
                             }
+                            {
+                                token && user?.role === 'customer' && <li key="myOrders" className="mr-8 text-lg">
+                                    <NavLink to={`/myOrders`}>My Orders</NavLink>
+                                </li>
+                            }
                         </ul>
                     </div>
                     <a className="flex  items-center text-lg text-">
@@ -63,6 +68,11 @@ const Navbar = () => {
                         {
                             token && user?.role === 'admin' || user?.role === 'superAdmin' && <li key="about" className="mr-8 text-lg">
                                 <NavLink to={`/dashboard`}>DASHBOARD</NavLink>
+                            </li>
+                        }
+                        {
+                            token && user?.role === 'customer' && <li key="myOrders" className="mr-8 text-lg">
+                                <NavLink to={`/myOrders`}>My Orders</NavLink>
                             </li>
                         }
                     </ul>

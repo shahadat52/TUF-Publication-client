@@ -20,6 +20,17 @@ const orderApi = baseApi.injectEndpoints({
             providesTags: ['orders']
         }),
 
+        getMyOrders: builder.query({
+            query: (branch) => {
+                console.log(branch);
+                return {
+                    url: `/order/myOrders/${branch}`,
+                    method: "GET"
+                }
+            },
+            providesTags: ['orders']
+        }),
+
         updateStatus: builder.mutation({
             query: (status) => ({
                 url: `/order/${status}`,
@@ -33,4 +44,4 @@ const orderApi = baseApi.injectEndpoints({
     }),
 });
 
-export const { useOrderPlaceMutation, useGetAllOrdersQuery, useUpdateStatusMutation } = orderApi;
+export const { useOrderPlaceMutation, useGetAllOrdersQuery, useUpdateStatusMutation, useGetMyOrdersQuery } = orderApi;
