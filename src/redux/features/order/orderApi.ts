@@ -13,8 +13,8 @@ const orderApi = baseApi.injectEndpoints({
         }),
 
         getAllOrders: builder.query({
-            query: () => ({
-                url: "/order",
+            query: ({ startDate, endDate }) => ({
+                url: `/order?startDate=${startDate}&endDate=${endDate}`,
                 method: "GET"
             }),
             providesTags: ['orders']
@@ -40,8 +40,27 @@ const orderApi = baseApi.injectEndpoints({
             invalidatesTags: ['orders']
         }),
 
+        lastOrder: builder.query({
+            query: () => {
+                return {
+                    url: "/order/lastOrder/invoice",
+                    method: "GET"
+                }
+            },
+            providesTags: ['orders']
+        }),
 
+        productOrderDetails: builder.query({
+            query: (productId) => {
+                console.log(productId);
+                return {
+                    url: `/order/specific/product/order?productId=${productId}`,
+                    method: "GET"
+                }
+            },
+            providesTags: ['orders']
+        }),
     }),
 });
 
-export const { useOrderPlaceMutation, useGetAllOrdersQuery, useUpdateStatusMutation, useGetMyOrdersQuery } = orderApi;
+export const { useOrderPlaceMutation, useGetAllOrdersQuery, useUpdateStatusMutation, useGetMyOrdersQuery, useLastOrderQuery, useProductOrderDetailsQuery } = orderApi;

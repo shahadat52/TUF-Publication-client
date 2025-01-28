@@ -34,6 +34,7 @@ const CartPage = () => {
 
         }
         const res = await orderPlace(orderData) as unknown as TRES
+        console.log(res);
         if (res?.data) {
             toast.success('Order successfully placed', {
                 autoClose: 2000

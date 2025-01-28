@@ -5,6 +5,7 @@ import { removeFromCart } from "../../redux/features/cart/cartSlice";
 import { useReactToPrint } from "react-to-print";
 import { useRef } from "react";
 import { IoMdPrint } from "react-icons/io";
+import { useLastOrderQuery } from "../../redux/features/order/orderApi";
 
 const CartTable = ({ totalPrice }: { totalPrice: number }) => {
 
@@ -45,10 +46,11 @@ const CartTable = ({ totalPrice }: { totalPrice: number }) => {
       display: none;
     }
   `;
-
-
     const products = useAppSelector((state) => state.auth.cart.products);
     const user = useAppSelector((state) => state.auth.auth.user) as { branch: string } | null;
+    const { data } = useLastOrderQuery(undefined)
+    const invoice = data?.data?.invoice
+    console.log(invoice);
     console.log(user);
     const dispatch = useAppDispatch();
     const date = new Date();
@@ -71,8 +73,8 @@ const CartTable = ({ totalPrice }: { totalPrice: number }) => {
                 <div className="flex justify-between">
                     <div>
 
-                        <p className="ml-6 text-lg">Invoice no: 01</p>
-                        <p className="ml-6 text-lg">Order form: {user?.branch} </p>
+                        <p className="ml-6 text-lg"><span className="font-semibold">Invoice no:</span> TUF-{invoice + 1}</p>
+                        <p className="ml-6 text-lg"><span className=" font-semibold">Order Form:</span> {user?.branch} </p>
                     </div>
                     <div>
                         <p className="text-xl lg:text-2xl font-bold text-end uppercase mr-6">Invoice/bill</p>

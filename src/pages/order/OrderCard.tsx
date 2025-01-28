@@ -8,13 +8,13 @@ import { useUpdateStatusMutation } from "../../redux/features/order/orderApi";
 
 
 type OrderCardProps = {
-    order: TOrder;
+  order: TOrder;
 }
 
 
 
 const OrderCard = ({ order, index }: OrderCardProps & { index: number }) => {
-    const pageStyle = `
+  const pageStyle = `
     @page {
       size: A4 ;
       margin: 20mm;
@@ -51,40 +51,40 @@ const OrderCard = ({ order, index }: OrderCardProps & { index: number }) => {
       display: none;
     }
   `;
-    const contentRef = useRef<HTMLTableRowElement>(null);
-    const reactToPrintFn = useReactToPrint({ contentRef, documentTitle: '', pageStyle });
-    const [updateStatus] = useUpdateStatusMutation()
+  const contentRef = useRef<HTMLTableRowElement>(null);
+  const reactToPrintFn = useReactToPrint({ contentRef, documentTitle: '', pageStyle });
+  const [updateStatus] = useUpdateStatusMutation()
 
 
-    const handleStatusUpdate = (id: string) => {
+  const handleStatusUpdate = (id: string) => {
 
-        updateStatus(id)
-    }
+    updateStatus(id)
+  }
 
-    return (
-        <>
+  return (
+    <>
 
-            <tr ref={contentRef} className="border-2 p-5 text-justify">
+      <tr ref={contentRef} className="border-2 p-5 text-justify">
 
-                <th>{index + 1}</th>
-                <th>{order.branchName}</th>
-                <th>{order?.address}</th>
-                <td> {order.phone}</td>
-                <td> {order.products.map((product: TProduct) => <li>{product.name} </li>)}</td>
-                <td> {order.products.map((product: TProduct) => <p className="text-">{product.quantity} </p>)}</td>
-                <td> {order.totalPrice}tk</td>
-                <td className="no-print"><button onClick={() => handleStatusUpdate(order?._id)} className="btn btn-primary" disabled={order.status === 'courier'}> {order.status}</button></td>
-                <td className="no-print"> <button
-                    onClick={() => reactToPrintFn()}
-                    className="no-print mt-1 px-1 py-1 text-2xl text-black rounded"
-                >
-                    <IoMdPrint />
-                </button></td>
-            </tr>
+        <th>{index + 1}</th>
+        <th>{order.branchName}</th>
+        <th>{order?.address}</th>
+        <td> {order.phone}</td>
+        <td> {order.products.map((product: TProduct, index) => <li key={index}>{product.name} </li>)}</td>
+        <td> {order.products.map((product: TProduct, index) => <p key={index} className="text-">{product.quantity} </p>)}</td>
+        <td> {order.totalPrice}tk</td>
+        <td className="no-print"><button onClick={() => handleStatusUpdate(order?._id)} className="btn btn-primary" disabled={order.status === 'courier'}> {order.status}</button></td>
+        <td className="no-print"> <button
+          onClick={() => reactToPrintFn()}
+          className="no-print mt-1 px-1 py-1 text-2xl text-black rounded"
+        >
+          <IoMdPrint />
+        </button></td>
+      </tr>
 
-        </>
+    </>
 
-    );
+  );
 };
 
 export default OrderCard;

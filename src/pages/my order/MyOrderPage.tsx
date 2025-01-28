@@ -7,7 +7,7 @@ import { useRef } from "react";
 import { useReactToPrint } from "react-to-print";
 
 const MyOrderPage = () => {
-    const pageStyle = `
+  const pageStyle = `
         @page {
           size: A4 landscape;
           margin: 10mm;
@@ -45,57 +45,56 @@ const MyOrderPage = () => {
           display: none;
         }
       `;
-    const date = new Date();
-    const contentRef = useRef<HTMLDivElement>(null);
-    const reactToPrintFn = useReactToPrint({ contentRef, documentTitle: '', pageStyle });
-    const user = useAppSelector((state) => state.auth.auth.user) as { branch: string } | null;
+  const date = new Date();
+  const contentRef = useRef<HTMLDivElement>(null);
+  const reactToPrintFn = useReactToPrint({ contentRef, documentTitle: '', pageStyle });
+  const user = useAppSelector((state) => state.auth.auth.user) as { branch: string } | null;
 
-    const { data } = useGetMyOrdersQuery(user?.branch)
-    console.log(data);
-    const orders = data?.data
-    return (
+  const { data } = useGetMyOrdersQuery(user?.branch);
+  const orders = data?.data
+  return (
 
-        <div ref={contentRef}>
-            <div className="no-print">
-                <button
-                    onClick={() => reactToPrintFn()}
-                    className="no-print flex justify-center items-center ml-3 mt-4 px-4 py-2 bg-blue-500 text-white rounded"
-                >
-                    <IoMdPrint /> Print
-                </button>
-            </div>
-            <h1 className=" text-xl text-center uppercase font-bold">Tanzimul Ummah Foundation</h1>
-            <h1 className="text-sm text-center uppercase font-bold">publication department</h1>
-            <p className="text-center uppercase">Dhaka, Bangladesh</p>
-            <p className="text-center font-semibold text-xl uppercase mt-5">All Orders</p>
-            <p className="text-center">Print on: {date.toLocaleDateString()} {date.toLocaleTimeString()} </p>
+    <div ref={contentRef}>
+      <div className="no-print">
+        <button
+          onClick={() => reactToPrintFn()}
+          className="no-print flex justify-center items-center ml-3 mt-4 px-4 py-2 bg-blue-500 text-white rounded"
+        >
+          <IoMdPrint /> Print
+        </button>
+      </div>
+      <h1 className=" text-xl text-center uppercase font-bold">Tanzimul Ummah Foundation</h1>
+      <h1 className="text-sm text-center uppercase font-bold">publication department</h1>
+      <p className="text-center uppercase">Dhaka, Bangladesh</p>
+      <p className="text-center font-semibold text-xl uppercase mt-5">All Orders</p>
+      <p className="text-center">Print on: {date.toLocaleDateString()} {date.toLocaleTimeString()} </p>
 
-            <div className="overflow-x-auto">
-                <table className="table table-md">
-                    <thead>
-                        <tr className="bg-gray-200 uppercase text-sm leading-normal">
-                            <th>No</th>
-                            <th>Branch Name</th>
-                            <th>Address</th>
-                            <th>phone</th>
-                            <th>Products</th>
-                            <th>Quantity</th>
-                            <th>Amount</th>
-                            <th>Date</th>
-                            <th>Status</th>
+      <div className="overflow-x-auto">
+        <table className="table table-md">
+          <thead>
+            <tr className="bg-gray-200 uppercase text-sm leading-normal">
+              <th>No</th>
+              <th>Branch Name</th>
+              <th>Address</th>
+              <th>phone</th>
+              <th>Products</th>
+              <th>Quantity</th>
+              <th>Amount</th>
+              <th>Date</th>
+              <th>Status</th>
 
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            orders?.map((order: TOrder, index: number) => (<MyOrderCart key={order._id} index={index} order={order} />))
-                        }
-                    </tbody>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              orders?.map((order: TOrder, index: number) => (<MyOrderCart key={order._id} index={index} order={order} />))
+            }
+          </tbody>
 
-                </table>
-            </div>
-        </div>
-    );
+        </table>
+      </div>
+    </div>
+  );
 };
 
 export default MyOrderPage;

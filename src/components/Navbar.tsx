@@ -8,13 +8,12 @@ const Navbar = () => {
     const dispatch = useAppDispatch()
     const { token, user } = useAppSelector((state: any) => state?.auth?.auth);
     const cart = useAppSelector((state) => state.auth.cart)
-    console.log(cart);
     const length = cart?.products?.length
     const navItems = [
-        <li className="mr-8 text-lg">
+        <li key='publication' className="mr-8 text-lg">
             <NavLink to={`/`}>PUBLICATION</NavLink>
         </li>,
-        <li className="mr-8 text-lg">
+        <li key='prize' className="mr-8 text-lg">
             <NavLink to={`/gift`}>ANNUAL PRIZE</NavLink>
         </li>
     ];

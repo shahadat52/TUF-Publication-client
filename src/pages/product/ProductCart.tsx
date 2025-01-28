@@ -2,6 +2,7 @@ import { useState } from "react";
 import { TProduct } from "../../interface/products";
 import { useDeleteSingleProductMutation } from "../../redux/features/products/productsApi";
 import UpdateProductModal from "./UpdateProductModal";
+import { NavLink } from "react-router";
 
 type OrderCardProps = {
     product: TProduct;
@@ -19,7 +20,7 @@ const ProductCart = ({ product, index }: OrderCardProps & { index: number }) => 
     return (
         <tr className="border-2 p-5 text-justify">
             <th>{index + 1}</th>
-            <th>{product.name}</th>
+            <th className="text-lg font-bold"><NavLink to={`/dashboard/products/${product.productId}`} >{product.name}</NavLink></th>
             <th>{product?.price}</th>
             <th>{product?.productId}</th>
             <td> {product.category}</td>
