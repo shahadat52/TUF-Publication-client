@@ -8,6 +8,7 @@ import { useNavigate } from "react-router";
 import { cartEmpty } from "../../redux/features/cart/cartSlice";
 import Loading from "../../components/Loading";
 import { useState } from "react";
+import { useGetSingleUserQuery } from "../../redux/features/auth/authApi";
 
 
 
@@ -19,20 +20,22 @@ const CartPage = () => {
     const dispatch = useAppDispatch()
     const totalPrice = products.reduce((sum, product) => sum + Number(product?.total), 0);
     const navigate = useNavigate()
-
-    console.log(user);
+    const { data } = useGetSingleUserQuery(user?.email)
+    const branchCode = data?.data?.code;
 
 
     const handleOrderPlace = async () => {
         setIsLoading(true)
         const orderData = {
-            branchName: user?.branch,
+            branchName: `${user?.branch} (${branchCode})`,
+            email: user?.email,
             address: user?.address,
             phone: user?.phone,
             products,
             totalPrice: totalPrice
 
         }
+
         const res = await orderPlace(orderData) as unknown as TRES
         console.log(res);
         if (res?.data) {

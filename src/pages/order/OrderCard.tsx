@@ -53,19 +53,16 @@ const OrderCard = ({ order, index }: OrderCardProps & { index: number }) => {
   `;
   const contentRef = useRef<HTMLTableRowElement>(null);
   const reactToPrintFn = useReactToPrint({ contentRef, documentTitle: '', pageStyle });
-  const [updateStatus] = useUpdateStatusMutation()
-
+  const [updateStatus] = useUpdateStatusMutation();
 
   const handleStatusUpdate = (id: string) => {
-
     updateStatus(id)
-  }
+  };
+
 
   return (
     <>
-
       <tr ref={contentRef} className="border-2 p-5 text-justify">
-
         <th>{index + 1}</th>
         <th>{order.branchName}</th>
         <th>{order?.address}</th>

@@ -49,9 +49,7 @@ const CartTable = ({ totalPrice }: { totalPrice: number }) => {
     const products = useAppSelector((state) => state.auth.cart.products);
     const user = useAppSelector((state) => state.auth.auth.user) as { branch: string } | null;
     const { data } = useLastOrderQuery(undefined)
-    const invoice = data?.data?.invoice
-    console.log(invoice);
-    console.log(user);
+    const invoice = data?.data?.invoice;
     const dispatch = useAppDispatch();
     const date = new Date();
     const contentRef = useRef<HTMLDivElement>(null);

@@ -97,7 +97,7 @@ const OrdersPage = () => {
                 <th>Customer Name</th>
                 <th>Address</th>
                 <th>phone</th>
-                <th>Products</th>
+                <th>Order---------------------Products</th>
                 <th>Quantity</th>
                 <th>Amount</th>
                 <th className="no-print">Status</th>

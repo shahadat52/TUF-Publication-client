@@ -14,7 +14,7 @@ const Navbar = () => {
             <NavLink to={`/`}>PUBLICATION</NavLink>
         </li>,
         <li key='prize' className="mr-8 text-lg">
-            <NavLink to={`/gift`}>ANNUAL PRIZE</NavLink>
+            <NavLink to={`/prize`}>ANNUAL PRIZE</NavLink>
         </li>
     ];
 

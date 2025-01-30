@@ -20,6 +20,7 @@ import OrdersPage from './pages/order/OrdersPage.tsx'
 import ProductManagementPage from './pages/product/ProductManagementPage.tsx'
 import MyOrderPage from './pages/my order/MyOrderPage.tsx'
 import ProductOrderDetails from './pages/product/ProductOrderDetails.tsx'
+import PrizeHomePage from './Prize/home/PrizeHomePage.tsx'
 
 
 createRoot(document.getElementById('root')!).render(
@@ -32,6 +33,7 @@ createRoot(document.getElementById('root')!).render(
           <Route element={<MainLayout />}>
             <Route index element={<HomePage />} />
             <Route path='cart' element={<CartPage />} />
+            <Route path='prize' element={<PrizeHomePage />} />
             <Route path='myOrders' element={<MyOrderPage />} />
             <Route path="*" element={<NotFound />} />
           </Route>
