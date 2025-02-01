@@ -17,7 +17,6 @@ const NoticePopup = () => {
     };
 
     const notices = data?.data
-    console.log(notices);
 
     if (!isOpen) return null;
 
