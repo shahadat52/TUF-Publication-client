@@ -21,12 +21,16 @@ import ProductManagementPage from './pages/product/ProductManagementPage.tsx'
 import MyOrderPage from './pages/my order/MyOrderPage.tsx'
 import ProductOrderDetails from './pages/product/ProductOrderDetails.tsx'
 import PrizeHomePage from './Prize/home/PrizeHomePage.tsx'
+import NoticePopup from './components/NoticePopup.tsx'
+import NoticeManagementPage from './pages/notice/NoticeManagementPage.tsx'
+import NoticeHomePage from './pages/notice/NoticeHomePage.tsx'
 
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <Provider store={store}>
       <ToastContainer />
+      <NoticePopup />
       <PersistGate loading={null} persistor={persistor}></PersistGate>
       <BrowserRouter>
         <Routes>
@@ -35,12 +39,15 @@ createRoot(document.getElementById('root')!).render(
             <Route path='cart' element={<CartPage />} />
             <Route path='prize' element={<PrizeHomePage />} />
             <Route path='myOrders' element={<MyOrderPage />} />
+            <Route path='notice' element={<NoticeHomePage />} />
             <Route path="*" element={<NotFound />} />
           </Route>
           {/* Dashboard layout */}
           <Route path="dashboard" element={<DashboardLayout />} >
             <Route path="/dashboard/orders" element={<OrdersPage />} />
             <Route path="/dashboard/products" element={<ProductManagementPage />} />
+            <Route path="/dashboard/notice" element={<NoticeManagementPage />} />
+
             <Route path="/dashboard/products/:id" element={<ProductOrderDetails />} />
           </Route>
 

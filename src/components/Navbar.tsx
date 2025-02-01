@@ -11,11 +11,15 @@ const Navbar = () => {
     const length = cart?.products?.length
     const navItems = [
         <li key='publication' className="mr-8 text-lg">
-            <NavLink to={`/`}>PUBLICATION</NavLink>
+            <NavLink to={`/`}>Publication</NavLink>
         </li>,
         <li key='prize' className="mr-8 text-lg">
-            <NavLink to={`/prize`}>ANNUAL PRIZE</NavLink>
+            <NavLink to={`/prize`}>Annual Prize</NavLink>
+        </li>,
+        <li key='prize' className="mr-8 text-lg">
+            <NavLink to={`/notice`}>Notice</NavLink>
         </li>
+
     ];
 
     const handleLogOut = () => {
@@ -45,8 +49,8 @@ const Navbar = () => {
                             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
                             {navItems}
                             {
-                                token && user?.role === 'admin' || user?.role === 'superAdmin' && <li key="about" className="mr-8 text-lg">
-                                    <NavLink to={`/dashboard`}>DASHBOARD</NavLink>
+                                token && user?.role === 'admin' || user?.role === 'superAdmin' && <li key="dashboard" className="mr-8 text-lg">
+                                    <NavLink to={`/dashboard`}>Dashboard</NavLink>
                                 </li>
                             }
                             {
@@ -65,8 +69,8 @@ const Navbar = () => {
                     <ul className="mx-5 w-full menu menu-horizontal px-1 font-semibold ">
                         {navItems}
                         {
-                            token && user?.role === 'admin' || user?.role === 'superAdmin' && <li key="about" className="mr-8 text-lg">
-                                <NavLink to={`/dashboard`}>DASHBOARD</NavLink>
+                            token && user?.role === 'admin' || user?.role === 'superAdmin' && <li key="dashboard" className="mr-8 text-lg">
+                                <NavLink to={`/dashboard`}>Dashboard</NavLink>
                             </li>
                         }
                         {

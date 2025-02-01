@@ -20,6 +20,9 @@ const DashboardLayout = () => {
                         <li key="review" className="mr-8 text-lg">
                             <NavLink to="/dashboard/products">Product Management</NavLink>
                         </li>
+                        <li key="review" className="mr-8 text-lg">
+                            <NavLink to="/dashboard/notice">Notice Management</NavLink>
+                        </li>
                     </ul>
                 </div>
             </div>

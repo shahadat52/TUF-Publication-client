@@ -40,12 +40,12 @@ const PrizeHomePage = () => {
                 </p>
                 <p
                     onClick={() => {
-                        setCategory('Santana')
+                        setCategory('sports')
                         setSearchTerm('')
                     }}
                     className="mt-2 pl-4 py-2 mx-2 uppercase text-sm md:text-lg font-semibold border hover:border-gray-500 hover:bg-primary rounded-lg cursor-pointer"
                 >
-                    Santana Award
+                    Sports Gift
                 </p>
 
                 <p
@@ -62,7 +62,7 @@ const PrizeHomePage = () => {
             {/* Product Section */}
             <div className="col-span-1 md:col-span-4 p-4">
                 {
-                    products?.length === 1 ? <ProductTable products={products} searchTerm={searchTerm} setSearchTerm={setSearchTerm} isLoading={isLoading} /> : <p className='text-center text-2xl text-red-500 font-semibold'>Products Not Available</p>
+                    products?.length === 0 ? <p className='text-center text-2xl text-red-500 font-semibold'>Products Not Available</p> : <ProductTable products={products} searchTerm={searchTerm} setSearchTerm={setSearchTerm} isLoading={isLoading} />
                 }
             </div>
 
