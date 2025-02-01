@@ -1,16 +1,32 @@
 import { useState } from 'react';
 import AddNoticeModal from './AddNoticeModal';
-import { useGetAllNoticesQuery } from '../../redux/features/notice/noticeApi';
+import { useDeleteNoticeMutation, useGetAllNoticesQuery } from '../../redux/features/notice/noticeApi';
 import Loading from '../../components/Loading';
 import { TNotice } from '../../interface/TNotice';
+import { toast } from 'react-toastify';
 
 const NoticeManagementPage = () => {
     const [isModalOpen, setModalOpen] = useState(false);
     const { data, isLoading } = useGetAllNoticesQuery(undefined);
     const notices = data?.data;
+    const [deleteNotice] = useDeleteNoticeMutation()
 
     if (isLoading) {
         return <Loading />
+    }
+
+
+    const handleDelete = async (id: string) => {
+        alert("Action Confirmed!");
+        const result = await deleteNotice(id)
+        console.log(result);
+        if (result?.data) {
+            toast.success("Successfully Added")
+        }
+        if (result?.error) {
+            toast.error("Failed")
+        };
+
     }
     return (
         <div>
@@ -28,7 +44,12 @@ const NoticeManagementPage = () => {
             </div>
             <div className="overflow-x-auto grid grid-cols-2 gap-5 mx-5">
                 {
-                    notices?.length === 0 ? <p className='text-center text-2xl text-red-500 font-semibold'>Products Not Available</p> : notices.map((notice: TNotice) => <div key={notice._id} className='border border-gray-700 p-5 rounded'>{notice.notice}</div>)
+                    notices?.length === 0 ? <p className='text-center text-2xl text-red-500 font-semibold'>There is no notice</p> : notices.map((notice: TNotice) =>
+                        <div key={notice._id} className='border border-gray-700 p-5 rounded'>
+                            <p>{notice.notice}</p>
+                            <button onClick={() => handleDelete(notice._id)} className='btn btn-error mb-1'>Delete</button>
+
+                        </div>)
                 }
             </div>
         </div>
