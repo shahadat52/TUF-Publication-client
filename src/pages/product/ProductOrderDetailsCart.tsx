@@ -10,9 +10,6 @@ const ProductOrderDetailsCart = ({ product, index }: { product: TProduct, index:
             <th>{product?.products?.quantity}</th>
             <th>{product?.totalPrice}</th>
             <th>{product?.products?.category}</th>
-
-
-
         </tr>
     );
 };

@@ -60,7 +60,17 @@ const orderApi = baseApi.injectEndpoints({
             },
             providesTags: ['orders']
         }),
+
+        branchOrders: builder.query({
+            query: (email) => {
+                console.log(email);
+                return {
+                    url: `/order?email=${email}`,
+                    method: "GET"
+                }
+            }
+        }),
     }),
 });
 
-export const { useOrderPlaceMutation, useGetAllOrdersQuery, useUpdateStatusMutation, useGetMyOrdersQuery, useLastOrderQuery, useProductOrderDetailsQuery } = orderApi;
+export const { useOrderPlaceMutation, useGetAllOrdersQuery, useUpdateStatusMutation, useGetMyOrdersQuery, useLastOrderQuery, useProductOrderDetailsQuery, useBranchOrdersQuery } = orderApi;

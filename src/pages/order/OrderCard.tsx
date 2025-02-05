@@ -5,6 +5,7 @@ import { TProduct } from "../../interface/products";
 import { useRef } from "react";
 import { useReactToPrint } from "react-to-print";
 import { useUpdateStatusMutation } from "../../redux/features/order/orderApi";
+import { NavLink } from "react-router";
 
 
 type OrderCardProps = {
@@ -64,7 +65,7 @@ const OrderCard = ({ order, index }: OrderCardProps & { index: number }) => {
     <>
       <tr ref={contentRef} className="border-2 p-5 text-justify">
         <th>{index + 1}</th>
-        <th>{order.branchName}</th>
+        <th><NavLink to={`/dashboard/order/branch/${order?.email}`}>{order.branchName}</NavLink></th>
         <th>{order?.address}</th>
         <td> {order.phone}</td>
         <td> {order.products.map((product: TProduct, index) => <li key={index}>{product.name} </li>)}</td>

@@ -24,6 +24,7 @@ import PrizeHomePage from './Prize/home/PrizeHomePage.tsx'
 import NoticePopup from './components/NoticePopup.tsx'
 import NoticeManagementPage from './pages/notice/NoticeManagementPage.tsx'
 import NoticeHomePage from './pages/notice/NoticeHomePage.tsx'
+import BranchOrderPage from './pages/order/BranchOrderPage.tsx'
 
 
 createRoot(document.getElementById('root')!).render(
@@ -45,6 +46,7 @@ createRoot(document.getElementById('root')!).render(
           {/* Dashboard layout */}
           <Route path="dashboard" element={<DashboardLayout />} >
             <Route path="/dashboard/orders" element={<OrdersPage />} />
+            <Route path="/dashboard/order/branch/:id" element={<BranchOrderPage />} />
             <Route path="/dashboard/products" element={<ProductManagementPage />} />
             <Route path="/dashboard/notice" element={<NoticeManagementPage />} />
 
