@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { IoMdPrint } from "react-icons/io";
 import { TOrder } from "../../interface/order";
 import { TProduct } from "../../interface/products";
@@ -17,8 +16,8 @@ type OrderCardProps = {
 const OrderCard = ({ order, index }: OrderCardProps & { index: number }) => {
   const pageStyle = `
     @page {
-      size: A4 ;
-      margin: 20mm;
+      size: A4 landscape;
+      margin: 10mm;
     }
     body {
       font-family: Arial, sans-serif;
@@ -59,14 +58,21 @@ const OrderCard = ({ order, index }: OrderCardProps & { index: number }) => {
   const handleStatusUpdate = (id: string) => {
     updateStatus(id)
   };
+  const date = new Date(order?.createdAt);
+  const formattedDate = date?.toLocaleDateString("en-US", {
+    month: "2-digit",
+    day: "2-digit",
+    year: "numeric",
+  });
 
-
+  console.log(formattedDate);
   return (
     <>
       <tr ref={contentRef} className="border-2 p-5 text-justify">
         <th>{index + 1}</th>
         <th><NavLink to={`/dashboard/order/branch/${order?.email}`}>{order.branchName}</NavLink></th>
         <th>{order?.address}</th>
+        <th>{formattedDate}</th>
         <td> {order.phone}</td>
         <td> {order.products.map((product: TProduct, index) => <li key={index}>{product.name} </li>)}</td>
         <td> {order.products.map((product: TProduct, index) => <p key={index} className="text-">{product.quantity} </p>)}</td>

@@ -6,10 +6,22 @@ import { useGetAllOrdersQuery } from "../../redux/features/order/orderApi";
 import OrderCard from "./OrderCard";
 import { useReactToPrint } from "react-to-print";
 import { IoMdPrint } from "react-icons/io";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const OrdersPage = () => {
-  const [startDate, setStartDate] = useState('')
-  const [endDate, setEndDate] = useState('')
+  // const [startDate, setStartDate] = useState('')
+  // const [endDate, setEndDate] = useState('')
+  const [startDate, setStartDate] = useState<Date | null>(null);
+  const [endDate, setEndDate] = useState<Date | null>(null);
+
+  const formatDate = (date: Date | null): string => {
+    return date ? date.toISOString().split("T")[0] : "";
+  };
+
+  const formattedStartDate = formatDate(startDate);
+  const formattedEndDate = formatDate(endDate);
+  console.log({ formattedStartDate, formattedEndDate });
   const pageStyle = `
     @page {
       size: A4 landscape;
@@ -52,26 +64,50 @@ const OrdersPage = () => {
   const contentRef = useRef<HTMLDivElement>(null);
   const reactToPrintFn = useReactToPrint({ contentRef, documentTitle: '', pageStyle });
 
-  const { data, isLoading } = useGetAllOrdersQuery({ startDate, endDate });
+  const { data, isLoading } = useGetAllOrdersQuery({ startDate: formattedStartDate, endDate: formattedEndDate });
   const orders = data?.data;
-  console.log({ startDate, endDate });
   if (isLoading) {
     return <Loading />
   }
   return (
     <div>
-      <div className=" flex mt-5 justify-around">
-        <input
-          onChange={(e) => setStartDate(e.target.value)}
-          type="text"
-          placeholder="yyyy-mm-dd     start date"
-          className="input input-bordered input-sm w-full max-w-xs" />
-        <input
-          onChange={(e) => setEndDate(e.target.value)}
-          type="text"
-          placeholder="yyyy-mm-dd     end date"
-          className="input input-bordered input-sm w-full max-w-xs" />
+
+      <div className="flex gap-3 justify-center items-center mx-auto w-full mt-5">
+
+        <div className="flex items-center  gap-2">
+          <label className="text-sm text-gray-700">Start Date:</label>
+          <DatePicker
+            selected={startDate}
+            onChange={(date) => setStartDate(date)}
+            selectsStart
+            startDate={startDate}
+            endDate={endDate}
+            placeholderText="Start Date"
+            dateFormat="yyyy-MM-dd"
+            className="px-3 py-2 border border-gray-300 rounded-md text-sm"
+            maxDate={endDate || undefined}
+          />
+        </div>
+
+        <div className="flex items-center gap-2">
+          <label className="text-sm text-gray-700">End Date:</label>
+          <DatePicker
+            selected={endDate}
+            onChange={(date) => setEndDate(date)}
+            selectsEnd
+            startDate={startDate}
+            endDate={endDate}
+            placeholderText="End Date"
+            dateFormat="yyyy-MM-dd"
+            className="px-3 py-2 border border-gray-300 rounded-md text-sm"
+            minDate={startDate || undefined}
+          />
+        </div>
+
+
       </div>
+
+
       <h1 className="text-xl font-semibold text-center  mb-10">Total  <span className="text-green-500 text-4xl mx-2">{orders?.length}</span> orders placed</h1> <hr /> <hr />
       <button
         onClick={() => reactToPrintFn()}
@@ -96,6 +132,7 @@ const OrdersPage = () => {
                 <th>No</th>
                 <th>Customer Name</th>
                 <th>Address</th>
+                <th>Date</th>
                 <th>phone</th>
                 <th>Order---------------------Products</th>
                 <th>Quantity</th>
