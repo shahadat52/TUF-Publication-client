@@ -49,19 +49,19 @@ createRoot(document.getElementById('root')!).render(
           </Route>
 
           {/* Dashboard layout */}
-          <Route path="dashboard" element={<PrivateRoute />}>
-            <Route element={<DashboardLayout />}>
-              <Route index element={<DashboardHomePage />} /> {/* optional homepage */}
-              <Route path="orders/publication" element={<PublicationOrdersPage />} />
-              <Route path="orders/annual" element={<AnnualOrdersPage />} />
-              <Route path="orders/delivery/pending" element={<DeliveryPendingProductsPage />} />
-              <Route path="order/branch/:id" element={<BranchOrderPage />} />
-              <Route path="products" element={<ProductManagementPage />} />
-              <Route path="notice" element={<NoticeManagementPage />} />
-              <Route path="products/:id" element={<ProductOrderDetails />} />
-            </Route>
+          {/* <Route path="dashboard" element={<PrivateRoute />}>
+            
+          </Route> */}
+          <Route path='dashboard' element={<PrivateRoute><DashboardLayout /></PrivateRoute>}>
+            <Route index element={<PrivateRoute><DashboardHomePage /></PrivateRoute>} /> {/* optional homepage */}
+            <Route path="orders/publication" element={<PrivateRoute><PublicationOrdersPage /></PrivateRoute>} />
+            <Route path="orders/annual" element={<PrivateRoute><AnnualOrdersPage /></PrivateRoute>} />
+            <Route path="orders/delivery/pending" element={<PrivateRoute><DeliveryPendingProductsPage /></PrivateRoute>} />
+            <Route path="order/branch/:id" element={<PrivateRoute><BranchOrderPage /></PrivateRoute>} />
+            <Route path="products" element={<PrivateRoute><ProductManagementPage /></PrivateRoute>} />
+            <Route path="notice" element={<PrivateRoute><NoticeManagementPage /></PrivateRoute>} />
+            <Route path="products/:id" element={<PrivateRoute><ProductOrderDetails /></PrivateRoute>} />
           </Route>
-
 
 
           <Route path="login" element={<Login />} />
