@@ -10,6 +10,7 @@ type OrderCardProps = {
 const ProductCart = ({ product, index }: OrderCardProps & { index: number }) => {
     const [isModalOpen, setModalOpen] = useState(false);
     const [deleteProduct] = useDeleteSingleProductMutation()
+
     const handleDelete = async (id: string) => {
         alert("Action Confirmed!");
         const result = await deleteProduct(id)

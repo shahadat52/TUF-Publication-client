@@ -16,8 +16,9 @@ const MyOrderCart = ({ order, index }: OrderCardProps & { index: number }) => {
             <th>{order.branchName}</th>
             <th>{order?.address}</th>
             <td> {order.phone}</td>
-            <td> {order.products.map((product: TProduct, index) => <li key={index} >{product.name} </li>)}</td>
-            <td> {order.products.map((product: TProduct, index) => <p key={index} className="text-">{product.quantity} </p>)}</td>
+            <td > {order.products.map((product: TProduct, index) => <li className="my-2" key={index} >{product.name} </li>)}</td>
+            <td > {order.products.map((product: TProduct, index) => <p className="my-2" key={index} >{product?.deliveryStatus === 'pending' ? <span className="bg-red-500  rounded-md px-2 py-1">{product?.deliveryStatus}</span> : <span className="bg-green-500 px-2 py-1 rounded-md ">{product?.deliveryStatus}</span>}</p>)}</td>
+            <td> {order.products.map((product: TProduct, index) => <p className="my-2" key={index} >{product.quantity} </p>)}</td>
             <td> {order.totalPrice}tk</td>
             <td >`{date}/{month}/{year}`</td>
             <td >{order?.status}</td>

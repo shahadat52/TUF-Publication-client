@@ -16,6 +16,7 @@ export type TProduct = {
     price: number;
     total?: number;
     quantity?: string
+    deliveryStatus?: string
     branchName?: string
     invoice?: string
     products?: TPro

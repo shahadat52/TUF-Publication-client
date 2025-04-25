@@ -3,7 +3,7 @@ import { TOrder } from "../../interface/order";
 import { TProduct } from "../../interface/products";
 import { useRef } from "react";
 import { useReactToPrint } from "react-to-print";
-import { useUpdateStatusMutation } from "../../redux/features/order/orderApi";
+import { useUpdateDeliveryStatusMutation, useUpdateStatusMutation } from "../../redux/features/order/orderApi";
 import { NavLink } from "react-router";
 
 
@@ -54,6 +54,7 @@ const OrderCard = ({ order, index }: OrderCardProps & { index: number }) => {
   const contentRef = useRef<HTMLTableRowElement>(null);
   const reactToPrintFn = useReactToPrint({ contentRef, documentTitle: '', pageStyle });
   const [updateStatus] = useUpdateStatusMutation();
+  const [updateDeliveryStatus] = useUpdateDeliveryStatusMutation();
 
   const handleStatusUpdate = (id: string) => {
     updateStatus(id)
@@ -65,7 +66,10 @@ const OrderCard = ({ order, index }: OrderCardProps & { index: number }) => {
     year: "numeric",
   });
 
-  console.log(formattedDate);
+  const handleDeliveryStatus = async (productId: string | undefined, previousStatus: string | undefined) => {
+    const newStatus = previousStatus === 'pending' ? 'confirm' : 'pending'
+    updateDeliveryStatus({ productId, newStatus })
+  }
   return (
     <>
       <tr ref={contentRef} className="border-2 p-5 text-justify">
@@ -73,9 +77,36 @@ const OrderCard = ({ order, index }: OrderCardProps & { index: number }) => {
         <th><NavLink to={`/dashboard/order/branch/${order?.email}`}>{order.branchName}</NavLink></th>
         <th>{order?.address}</th>
         <th>{formattedDate}</th>
-        <td> {order.phone}</td>
-        <td> {order.products.map((product: TProduct, index) => <li key={index}>{product.name} </li>)}</td>
-        <td> {order.products.map((product: TProduct, index) => <p key={index} className="text-">{product.quantity} </p>)}</td>
+        <td> {order?.phone}</td>
+        <td> {order?.products?.map((product: TProduct, index) => <li className="my-2" key={index}>{product.name} </li>)}</td>
+
+        <td>
+          {order?.products?.map((product: TProduct, index) => (
+            <p
+              key={index}
+              onClick={() => handleDeliveryStatus(product?._id, product?.deliveryStatus)}
+              className="my-2 cursor-pointer hover:text-blue-600 font-medium"
+              title="Click to toggle delivery status"
+            >
+              {product?.deliveryStatus === 'pending' ? <span className="bg-red-500  rounded-md px-2 py-1">{product?.deliveryStatus}</span> : <span className="bg-green-500 px-2 py-1 rounded-md ">{product?.deliveryStatus}</span>}
+            </p>
+          ))}
+        </td>
+
+        <td>
+          {order?.products?.map((product: TProduct, index) => (
+            <p
+              key={index}
+              onClick={() => handleDeliveryStatus(product?._id, product?.deliveryStatus)}
+              className="my-2 cursor-pointer hover:text-blue-600 font-medium"
+              title="Click to toggle delivery status"
+            >
+              {product?.quantity}
+            </p>
+          ))}
+        </td>
+
+
         <td> {order.totalPrice}tk</td>
         <td className="no-print"><button onClick={() => handleStatusUpdate(order?._id)} className="btn btn-primary" disabled={order.status === 'courier'}> {order.status}</button></td>
         <td className="no-print"> <button

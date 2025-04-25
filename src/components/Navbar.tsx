@@ -3,12 +3,14 @@ import { FaShoppingCart } from "react-icons/fa";
 import { NavLink } from "react-router";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { logOut } from "../redux/features/auth/authSlice";
+import { TAuth } from "../interface/auth";
 
 const Navbar = () => {
+
     const dispatch = useAppDispatch()
-    const { token, user } = useAppSelector((state: any) => state?.auth?.auth);
-    const cart = useAppSelector((state) => state.auth.cart)
-    const length = cart?.products?.length
+    const { token, user } = useAppSelector((state: TAuth) => state?.auth?.auth);
+    const cart = useAppSelector((state) => state.auth.cart) as any
+    const length = cart?.products?.length;
     const navItems = [
         <li key='publication' className="mr-8 text-lg">
             <NavLink to={`/`}>Publication</NavLink>
@@ -16,7 +18,7 @@ const Navbar = () => {
         <li key='prize' className="mr-8 text-lg">
             <NavLink to={`/prize`}>Annual Prize</NavLink>
         </li>,
-        <li key='prize' className="mr-8 text-lg">
+        <li key='notice' className="mr-8 text-lg">
             <NavLink to={`/notice`}>Notice</NavLink>
         </li>
 

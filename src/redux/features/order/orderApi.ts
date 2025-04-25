@@ -70,7 +70,38 @@ const orderApi = baseApi.injectEndpoints({
                 }
             }
         }),
+
+        deliveryPendingProducts: builder.query({
+            query: () => {
+                return {
+                    url: '/order/delivery/pending/products',
+                    method: 'GET'
+                }
+            },
+            providesTags: ['deliveryPendingProducts']
+        }),
+
+        updateDeliveryStatus: builder.mutation({
+            query: (status) => {
+                return {
+                    url: `order/toggle-status/${status?.productId}`,
+                    method: "PATCH",
+                    body: { newStatus: status?.newStatus }
+                }
+            },
+            invalidatesTags: ['orders', 'annualPrizeOrders', 'deliveryPendingProducts']
+        }),
+
+        annualPrizeOrders: builder.query({
+            query: () => {
+                return {
+                    url: '/order/annual/prize',
+                    method: 'GET'
+                }
+            },
+            providesTags: ['annualPrizeOrders']
+        }),
     }),
 });
 
-export const { useOrderPlaceMutation, useGetAllOrdersQuery, useUpdateStatusMutation, useGetMyOrdersQuery, useLastOrderQuery, useProductOrderDetailsQuery, useBranchOrdersQuery } = orderApi;
+export const { useOrderPlaceMutation, useGetAllOrdersQuery, useDeliveryPendingProductsQuery, useUpdateStatusMutation, useGetMyOrdersQuery, useLastOrderQuery, useProductOrderDetailsQuery, useBranchOrdersQuery, useUpdateDeliveryStatusMutation, useAnnualPrizeOrdersQuery } = orderApi;

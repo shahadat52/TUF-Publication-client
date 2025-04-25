@@ -17,14 +17,19 @@ const CartPage = () => {
     const user = useAppSelector(state => state.auth.auth.user) as any
     const [orderPlace] = useOrderPlaceMutation();
     const products = useAppSelector(state => state.auth.cart.products)
+    console.log(products.length);
     const dispatch = useAppDispatch()
-    const totalPrice = products.reduce((sum, product) => sum + Number(product?.total), 0);
+    const totalPrice = products?.reduce((sum, product) => sum + Number(product?.total), 0);
     const navigate = useNavigate()
     const { data } = useGetSingleUserQuery(user?.email)
     const branchCode = data?.data?.code;
 
 
     const handleOrderPlace = async () => {
+        if (products?.length === 0) {
+            toast.error('Please add products to cart')
+            return
+        }
         setIsLoading(true)
         const orderData = {
             branchName: `${user?.branch} (${branchCode})`,
@@ -64,9 +69,15 @@ const CartPage = () => {
                 <p className="text-xl">{user?.branch}</p> <hr /> <hr />
                 {
                     isLoading ? <Loading /> : <div
-                        onClick={handleOrderPlace}
+
                         className="">
-                        <button className=" btn btn-primary mt-10  text-semibold text-xl "><span>ORDER NOW</span></button>
+                        <button
+                            onClick={handleOrderPlace}
+                            // disabled={products?.length === 0}
+                            className=" btn btn-primary mt-10  text-semibold text-xl "
+                        >
+                            <span>ORDER NOW</span>
+                        </button>
                     </div>
                 }
             </div>

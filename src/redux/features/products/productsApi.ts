@@ -14,7 +14,6 @@ const productsApi = baseApi.injectEndpoints({
 
         getProducts: builder.query({
             query: ({ searchTerm, category }) => {
-                console.log({ searchTerm, category });
                 return {
                     url: `/products?category=${category}`,
                     method: "GET",

@@ -78,6 +78,7 @@ const MyOrderPage = () => {
               <th>Address</th>
               <th>phone</th>
               <th>Products</th>
+              <th>Stock</th>
               <th>Quantity</th>
               <th>Amount</th>
               <th>Date</th>
