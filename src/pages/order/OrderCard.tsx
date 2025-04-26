@@ -77,33 +77,42 @@ const OrderCard = ({ order, index }: OrderCardProps & { index: number }) => {
         <th><NavLink to={`/dashboard/order/branch/${order?.email}`}>{order.branchName}</NavLink></th>
         <th>{order?.address}</th>
         <th>{formattedDate}</th>
-        <td> {order?.phone}</td>
-        <td> {order?.products?.map((product: TProduct, index) => <li className="my-2" key={index}>{product.name} </li>)}</td>
-
+        <td>{order?.phone}</td>
         <td>
-          {order?.products?.map((product: TProduct, index) => (
-            <p
-              key={index}
-              onClick={() => handleDeliveryStatus(product?._id, product?.deliveryStatus)}
-              className="my-2 cursor-pointer hover:text-blue-600 font-medium"
-              title="Click to toggle delivery status"
-            >
-              {product?.deliveryStatus === 'pending' ? <span className="bg-red-500  rounded-md px-2 py-1">{product?.deliveryStatus}</span> : <span className="bg-green-500 px-2 py-1 rounded-md ">{product?.deliveryStatus}</span>}
+          {order?.products?.map((product: TProduct, index) =>
+            <p className="my-2 py-1" key={index}>
+              {index + 1}) {product.name}
             </p>
-          ))}
+          )}
         </td>
 
         <td>
-          {order?.products?.map((product: TProduct, index) => (
-            <p
-              key={index}
-              onClick={() => handleDeliveryStatus(product?._id, product?.deliveryStatus)}
-              className="my-2 cursor-pointer hover:text-blue-600 font-medium"
-              title="Click to toggle delivery status"
-            >
-              {product?.quantity}
-            </p>
-          ))}
+          <ol>
+            {order?.products?.map((product: TProduct, index) => (
+              <p
+                key={index}
+                onClick={() => handleDeliveryStatus(product?._id, product?.deliveryStatus)}
+                className=" cursor-pointer hover:text-blue-600 font-medium mb-2"
+                title="Click to toggle delivery status"
+              >
+                {product?.deliveryStatus === 'pending' ?
+                  <span className="bg-red-500 flex flex-col  text-white rounded-md px-2 py-1 my-2  ">{product?.deliveryStatus}</span> :
+                  <span className="bg-green-500 flex flex-col px-2 py-1 my-2  rounded-md text-white  ">{product?.deliveryStatus}</span>
+                }
+              </p>
+            ))}
+          </ol>
+        </td>
+
+        <td>
+          <ol className="list-inside">
+            {order?.products?.map((product: TProduct, index) =>
+              <li className="my-2 py-1" key={index}>
+                {index + 1}) {" "} {product.quantity}
+
+              </li>
+            )}
+          </ol>
         </td>
 
 

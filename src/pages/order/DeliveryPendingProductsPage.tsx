@@ -19,45 +19,53 @@ const DeliveryPendingProductsPage = () => {
 
   const formattedStartDate = formatDate(startDate);
   const formattedEndDate = formatDate(endDate);
-  console.log({ formattedStartDate, formattedEndDate });
   const pageStyle = `
-        @page {
-          size: A4 landscape;
-          margin: 10mm;
-        }
-        body {
-          font-family: Arial, sans-serif;
-          line-height: 1.6;
-          -webkit-print-color-adjust: exact;
-        }
-        h1 {
-          color: black;
-        }
-        table {
-          width: 100%;
-          border-collapse: collapse;
-        }
-        table, th, td {
-          border: 1px solid black;
-        }
-        th, td {
-          padding: 8px;
-          text-align: left;
-        }
-        .print-only {
-          display: none;
-        }
-        @media print {
-        .print-only {
-          display: block;
-          }
-        }
-    
-        /* Hide elements with the "no-print" class when printing */
-        .no-print {
-          display: none;
-        }
-      `;
+  @page {
+    size: A4 landscape;
+    margin: 10mm;
+  }
+  body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    -webkit-print-color-adjust: exact;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+  }
+  table, th, td {
+    border: 1px solid black;
+  }
+  th, td {
+    padding: 2px;
+    text-align: left;
+    vertical-align: top;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    font-size: 11px;
+  }
+  th:nth-child(1), td:nth-child(1) { width: 20px; }
+  th:nth-child(2), td:nth-child(2) { width: 100px; }
+  th:nth-child(3), td:nth-child(3) { width: 90px; }
+  th:nth-child(4), td:nth-child(4) { width: 90px; }
+  th:nth-child(5), td:nth-child(5) { width: 95px; }
+  th:nth-child(6), td:nth-child(6) { width: 280px; }
+  th:nth-child(7), td:nth-child(7) { width: 90px; }
+  th:nth-child(8), td:nth-child(8) { width: 80px; }
+  th:nth-child(9), td:nth-child(9) { width: 70px; }
+  .print-only {
+    display: none;
+  }
+  @media print {
+    .print-only {
+      display: block;
+    }
+    .no-print {
+      display: none;
+    }
+  }
+`;
   const date = new Date();
   const contentRef = useRef<HTMLDivElement>(null);
   const reactToPrintFn = useReactToPrint({ contentRef, documentTitle: '', pageStyle });
@@ -128,11 +136,11 @@ const DeliveryPendingProductsPage = () => {
             <thead>
               <tr className="bg-gray-200 uppercase text-sm leading-normal">
                 <th>No</th>
-                <th>Customer Name</th>
+                <th>Customer</th>
                 <th>Address</th>
                 <th>Date</th>
                 <th>phone</th>
-                <th>Order---------------------Products</th>
+                <th>Order----------------------------Products</th>
                 <th>Stock</th>
                 <th>Quantity</th>
                 <th>Amount</th>
@@ -150,6 +158,7 @@ const DeliveryPendingProductsPage = () => {
 
           </table>
         </div>
+
 
 
       </div>
