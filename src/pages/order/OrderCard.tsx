@@ -38,6 +38,15 @@ const OrderCard = ({ order, index }: OrderCardProps & { index: number }) => {
       padding: 8px;
       text-align: left;
     }
+     th:nth-child(1), td:nth-child(1) { width: 20px; }
+  th:nth-child(2), td:nth-child(2) { width: 100px; }
+  th:nth-child(3), td:nth-child(3) { width: 90px; }
+  th:nth-child(4), td:nth-child(4) { width: 90px; }
+  th:nth-child(5), td:nth-child(5) { width: 95px; }
+  th:nth-child(6), td:nth-child(6) { width: 280px; }
+  th:nth-child(7), td:nth-child(7) { width: 90px; }
+  th:nth-child(8), td:nth-child(8) { width: 90px; }
+  th:nth-child(9), td:nth-child(9) { width: 70px; }
      .print-only {
       display: none;
     }

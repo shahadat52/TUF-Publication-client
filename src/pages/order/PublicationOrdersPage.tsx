@@ -54,7 +54,7 @@ const PublicationOrdersPage = () => {
   th:nth-child(5), td:nth-child(5) { width: 95px; }
   th:nth-child(6), td:nth-child(6) { width: 280px; }
   th:nth-child(7), td:nth-child(7) { width: 90px; }
-  th:nth-child(8), td:nth-child(8) { width: 80px; }
+  th:nth-child(8), td:nth-child(8) { width: 90px; }
   th:nth-child(9), td:nth-child(9) { width: 70px; }
   .print-only {
     display: none;
@@ -125,6 +125,7 @@ const PublicationOrdersPage = () => {
       >
         <IoMdPrint /> Print
       </button>
+
       <div ref={contentRef} className="p-4">
 
         <h1 className=" text-xl text-center uppercase font-bold">Tanzimul Ummah Foundation</h1>
