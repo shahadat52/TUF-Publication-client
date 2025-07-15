@@ -2,16 +2,16 @@
 import { useRef, useState } from "react";
 import Loading from "../../components/Loading";
 import { TOrder } from "../../interface/order";
-import { useGetAllOrdersQuery } from "../../redux/features/order/orderApi";
+// import { useGetAllOrdersQuery } from "../../redux/features/order/orderApi";
 import OrderCard from "./OrderCard";
 import { useReactToPrint } from "react-to-print";
 import { IoMdPrint } from "react-icons/io";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { usePublicationOrdersQuery } from "../../redux/features/order/orderApi";
 
 const PublicationOrdersPage = () => {
-  // const [startDate, setStartDate] = useState('')
-  // const [endDate, setEndDate] = useState('')
+  const [limit, setLimit] = useState<number>(20);
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
 
@@ -72,11 +72,12 @@ const PublicationOrdersPage = () => {
   const contentRef = useRef<HTMLDivElement>(null);
   const reactToPrintFn = useReactToPrint({ contentRef, documentTitle: '', pageStyle });
 
-  const { data, isLoading } = useGetAllOrdersQuery({ startDate: formattedStartDate, endDate: formattedEndDate });
+  const { data, isLoading } = usePublicationOrdersQuery({ startDate: formattedStartDate, endDate: formattedEndDate, limit });
   const orders = data?.data;
   if (isLoading) {
     return <Loading />
   }
+
   return (
     <div>
 
@@ -162,6 +163,11 @@ const PublicationOrdersPage = () => {
             </tbody>
 
           </table>
+          <div
+            onClick={() => setLimit(500)}
+            className=' flex justify-center items-center my-2'>
+            <button className='btn btn-accent '>See More</button>
+          </div>
         </div>
 
 

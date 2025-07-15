@@ -10,6 +10,7 @@ import OrderCard from './OrderCard';
 const AnnualOrdersPage = () => {
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
+  const [limit, setLimit] = useState<number>(20);
 
   const formatDate = (date: Date | null): string => {
     return date ? date.toISOString().split("T")[0] : "";
@@ -68,11 +69,13 @@ const AnnualOrdersPage = () => {
   const contentRef = useRef<HTMLDivElement>(null);
   const reactToPrintFn = useReactToPrint({ contentRef, documentTitle: '', pageStyle });
 
-  const { data, isLoading } = useAnnualPrizeOrdersQuery({ startDate: formattedStartDate, endDate: formattedEndDate });
+  const { data, isLoading } = useAnnualPrizeOrdersQuery({ startDate: formattedStartDate, endDate: formattedEndDate, limit });
   const annualPrizeOrders = data?.data;
+
   if (isLoading) {
     return <Loading />
-  }
+  };
+
   return (
     <div>
 
@@ -122,7 +125,7 @@ const AnnualOrdersPage = () => {
       <div ref={contentRef} className="p-4">
 
         <h1 className=" text-xl text-center uppercase font-bold">Tanzimul Ummah Foundation</h1>
-        <h1 className="text-sm text-center uppercase font-bold">publication department</h1>
+        <h1 className="text-sm text-center uppercase font-bold">Annual Prize department</h1>
         <p className="text-center uppercase">Dhaka, Bangladesh</p>
         <p className="text-center font-semibold text-xl uppercase mt-5">All Orders</p>
         <p className="text-center">Print on: {date.toLocaleDateString()} {date.toLocaleTimeString()} </p>
@@ -155,6 +158,11 @@ const AnnualOrdersPage = () => {
             </tbody>
 
           </table>
+          <div
+            onClick={() => setLimit(500)}
+            className=' flex justify-center items-center my-2'>
+            <button className='btn btn-accent '>See More</button>
+          </div>
         </div>
 
 

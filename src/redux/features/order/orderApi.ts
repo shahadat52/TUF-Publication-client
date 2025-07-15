@@ -93,15 +93,26 @@ const orderApi = baseApi.injectEndpoints({
         }),
 
         annualPrizeOrders: builder.query({
-            query: () => {
+            query: ({ startDate, endDate, limit }) => {
                 return {
-                    url: '/order/annual/prize',
+                    url: `/order/annual/prize?startDate=${startDate}&endDate=${endDate}&limit=${limit}`,
                     method: 'GET'
                 }
             },
             providesTags: ['annualPrizeOrders']
         }),
+
+        publicationOrders: builder.query({
+            query: ({ startDate, endDate, limit }) => {
+                return {
+                    url: `/order/publication/orders?startDate=${startDate}&endDate=${endDate}&limit=${limit}`,
+                    method: 'GET'
+                }
+            },
+            providesTags: ['publicationOrders']
+        }),
+
     }),
 });
 
-export const { useOrderPlaceMutation, useGetAllOrdersQuery, useDeliveryPendingProductsQuery, useUpdateStatusMutation, useGetMyOrdersQuery, useLastOrderQuery, useProductOrderDetailsQuery, useBranchOrdersQuery, useUpdateDeliveryStatusMutation, useAnnualPrizeOrdersQuery } = orderApi;
+export const { useOrderPlaceMutation, useGetAllOrdersQuery, useDeliveryPendingProductsQuery, useUpdateStatusMutation, useGetMyOrdersQuery, useLastOrderQuery, useProductOrderDetailsQuery, useBranchOrdersQuery, useUpdateDeliveryStatusMutation, useAnnualPrizeOrdersQuery, usePublicationOrdersQuery } = orderApi;
