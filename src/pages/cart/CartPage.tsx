@@ -16,7 +16,7 @@ const CartPage = () => {
     const [isLoading, setIsLoading] = useState(false)
     const user = useAppSelector(state => state.auth.auth.user) as any
     const [orderPlace] = useOrderPlaceMutation();
-    const products = useAppSelector(state => state.auth.cart.items)
+    const products = useAppSelector(state => state.auth.cart.products)
     const dispatch = useAppDispatch()
     const totalPrice = products?.reduce((sum, product) => sum + Number(product?.total), 0);
     const navigate = useNavigate()

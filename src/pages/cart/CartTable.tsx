@@ -46,7 +46,8 @@ const CartTable = ({ totalPrice }: { totalPrice: number }) => {
       display: none;
     }
   `;
-    const products = useAppSelector((state) => state.auth.cart.items);
+
+    const products = useAppSelector((state) => state.auth.cart.products);
     const user = useAppSelector((state) => state.auth.auth.user) as { branch: string } | null;
     const { data } = useLastOrderQuery(undefined)
     const invoice = data?.data?.invoice;

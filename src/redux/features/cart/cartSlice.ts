@@ -4,11 +4,11 @@ import { TProduct } from '../../../interface/products';
 
 
 interface CartState {
-    items: TProduct[];
+    products: TProduct[];
     address: string
 }
 const initialState: CartState = {
-    items: [],
+    products: [],
     address: ''
 }
 
@@ -18,14 +18,14 @@ export const cartSlice = createSlice({
     reducers: {
         addToCart: (state, action) => {
 
-            state?.items?.push(action.payload)
+            state?.products?.push(action.payload)
         },
         cartEmpty: (state) => {
-            state.items = []
+            state.products = []
         },
         removeFromCart(state, action) {
             // Remove item by its id
-            state.items = state.items.filter((item: TProduct) => (item?.productId) !== action.payload);
+            state.products = state.products.filter((item: TProduct) => (item?.productId) !== action.payload);
         },
         saveAddress: (state, action) => {
             state.address = action.payload
