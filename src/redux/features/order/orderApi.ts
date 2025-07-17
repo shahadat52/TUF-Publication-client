@@ -22,7 +22,6 @@ const orderApi = baseApi.injectEndpoints({
 
         getMyOrders: builder.query({
             query: (branch) => {
-                console.log(branch);
                 return {
                     url: `/order/myOrders/${branch}`,
                     method: "GET"
@@ -52,7 +51,6 @@ const orderApi = baseApi.injectEndpoints({
 
         productOrderDetails: builder.query({
             query: (productId) => {
-                console.log(productId);
                 return {
                     url: `/order/specific/product/order?productId=${productId}`,
                     method: "GET"
@@ -63,7 +61,6 @@ const orderApi = baseApi.injectEndpoints({
 
         branchOrders: builder.query({
             query: (email) => {
-                console.log(email);
                 return {
                     url: `/order?email=${email}`,
                     method: "GET"

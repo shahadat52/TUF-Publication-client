@@ -41,7 +41,6 @@ const CartPage = () => {
         }
 
         const res = await orderPlace(orderData) as unknown as TRES
-        console.log(res);
         if (res?.data) {
             toast.success('Order successfully placed', {
                 autoClose: 2000
@@ -54,8 +53,7 @@ const CartPage = () => {
         if (res?.error) {
             setIsLoading(false)
             toast.error(`${res?.error?.data?.message}`)
-        }
-        console.log(res);
+        };
     }
     return (
         <div className="grid grid-cols-1 lg:grid-cols-3">

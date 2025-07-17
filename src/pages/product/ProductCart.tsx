@@ -13,8 +13,7 @@ const ProductCart = ({ product, index }: OrderCardProps & { index: number }) => 
 
     const handleDelete = async (id: string) => {
         alert("Action Confirmed!");
-        const result = await deleteProduct(id)
-        console.log(result);
+        await deleteProduct(id)
     }
 
 

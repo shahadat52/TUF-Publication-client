@@ -22,7 +22,6 @@ const AddNoticeModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => v
             notice: data.notice
         };
 
-        console.log(noticeData);
         const result = await addNotice(noticeData)
         if (result?.data) {
             setIsLoading(false)

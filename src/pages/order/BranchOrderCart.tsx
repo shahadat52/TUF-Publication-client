@@ -2,7 +2,6 @@ import { TOrder } from "../../interface/order";
 import { TProduct } from "../../interface/products";
 
 const BranchOrderCart = ({ order, index }: { order: TOrder, index: number }) => {
-    console.log(order);
     return (
         <tr className="border-2 p-5 text-justify">
             <th>{index + 1}</th>

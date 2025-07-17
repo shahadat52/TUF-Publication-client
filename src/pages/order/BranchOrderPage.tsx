@@ -7,7 +7,6 @@ const BranchOrderPage = () => {
     const { id } = useParams();
     const { data } = useBranchOrdersQuery(id);
     const products = data?.data;
-    console.log(products);
     return (
         <div className="overflow-x-auto">
             <h1 className="text-xl font-semibold text-center  mb-10">Total  <span className="text-green-500 text-4xl mx-2">{products?.length}</span> order makes from {products?.length ? products[0]?.branchName : ''}  </h1>

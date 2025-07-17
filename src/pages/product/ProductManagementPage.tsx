@@ -17,7 +17,6 @@ const ProductManagementPage = () => {
         setSearchTerm(e.target.value)
     }
 
-    console.log(searchTerm);
     if (isLoading) {
         return <Loading />
     }

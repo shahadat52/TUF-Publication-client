@@ -10,9 +10,7 @@ const Navbar = () => {
     const dispatch = useAppDispatch()
     const { token, user } = useAppSelector((state: TAuth) => state?.auth?.auth);
     const cart = useAppSelector((state) => state?.auth?.cart) as any
-    const carts = useAppSelector((state) => state) as any
-    console.log(carts);
-    const length = cart?.items?.length || 0;
+    const length = cart?.products?.length || 0;
     const navItems = [
         <li key='publication' className="mr-8 text-lg">
             <NavLink to={`/`}>Publication</NavLink>
@@ -26,7 +24,6 @@ const Navbar = () => {
 
     ];
 
-    console.log(length);
     const handleLogOut = () => {
         dispatch(logOut())
     }

@@ -29,7 +29,6 @@ const Register = () => {
     const [registerUser] = useRegisterMutation();
 
     const onSubmit: SubmitHandler<Inputs> = async (data: FieldValues) => {
-        console.log({ data })
 
         const res = await registerUser(data) as unknown as TRES;
 
@@ -43,8 +42,7 @@ const Register = () => {
         }
         if (res?.error) {
             toast.error(`${res?.error?.data?.message}`)
-        }
-        console.log(res);
+        };
     }
     return (
         <div className="flex justify-center items-center h-screen">

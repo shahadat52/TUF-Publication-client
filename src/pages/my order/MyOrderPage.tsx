@@ -49,7 +49,6 @@ const MyOrderPage = () => {
   const contentRef = useRef<HTMLDivElement>(null);
   const reactToPrintFn = useReactToPrint({ contentRef, documentTitle: '', pageStyle });
   const user = useAppSelector((state) => state.auth.auth.user) as { email: string } | null;
-  console.log(user);
   const { data } = useGetMyOrdersQuery(user?.email);
   const orders = data?.data
   return (

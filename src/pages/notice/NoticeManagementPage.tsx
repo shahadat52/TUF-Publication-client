@@ -19,9 +19,8 @@ const NoticeManagementPage = () => {
     const handleDelete = async (id: string) => {
         alert("Action Confirmed!");
         const result = await deleteNotice(id)
-        console.log(result);
         if (result?.data) {
-            toast.success("Successfully Added")
+            toast.success("Successfully Deleted")
         }
         if (result?.error) {
             toast.error("Failed")
