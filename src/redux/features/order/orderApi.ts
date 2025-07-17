@@ -71,10 +71,20 @@ const orderApi = baseApi.injectEndpoints({
             }
         }),
 
-        deliveryPendingProducts: builder.query({
+        deliveryPendingPUBProducts: builder.query({
             query: () => {
                 return {
-                    url: '/order/delivery/pending/products',
+                    url: '/order/delivery/pending/publications',
+                    method: 'GET'
+                }
+            },
+            providesTags: ['deliveryPendingProducts']
+        }),
+
+        deliveryPendingANUProducts: builder.query({
+            query: () => {
+                return {
+                    url: '/order/delivery/pending/annual',
                     method: 'GET'
                 }
             },
@@ -89,7 +99,7 @@ const orderApi = baseApi.injectEndpoints({
                     body: { newStatus: status?.newStatus }
                 }
             },
-            invalidatesTags: ['orders', 'annualPrizeOrders', 'deliveryPendingProducts']
+            invalidatesTags: ['orders', 'annualPrizeOrders', 'publicationOrders', 'deliveryPendingProducts']
         }),
 
         annualPrizeOrders: builder.query({
@@ -115,4 +125,4 @@ const orderApi = baseApi.injectEndpoints({
     }),
 });
 
-export const { useOrderPlaceMutation, useGetAllOrdersQuery, useDeliveryPendingProductsQuery, useUpdateStatusMutation, useGetMyOrdersQuery, useLastOrderQuery, useProductOrderDetailsQuery, useBranchOrdersQuery, useUpdateDeliveryStatusMutation, useAnnualPrizeOrdersQuery, usePublicationOrdersQuery } = orderApi;
+export const { useOrderPlaceMutation, useGetAllOrdersQuery, useDeliveryPendingPUBProductsQuery, useDeliveryPendingANUProductsQuery, useUpdateStatusMutation, useGetMyOrdersQuery, useLastOrderQuery, useProductOrderDetailsQuery, useBranchOrdersQuery, useUpdateDeliveryStatusMutation, useAnnualPrizeOrdersQuery, usePublicationOrdersQuery } = orderApi;

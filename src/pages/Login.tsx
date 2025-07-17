@@ -28,7 +28,6 @@ const Login = () => {
     const { register, handleSubmit, reset, formState: { errors }, } = useForm<Inputs>();
 
     const [login] = useLoginMutation()
-    console.log({ token });
 
     useEffect(() => {
         if (token?.token) {
@@ -41,14 +40,12 @@ const Login = () => {
         setLoading(true)
         try {
             const res = await login(data)
-            console.log(res);
             if (res?.data) {
                 const token = (res as any)?.data?.data?.accessToken;
                 toast.update(toastId, { render: `${(res as any)?.data?.message}`, type: "success", isLoading: false, autoClose: 2000 })
 
                 // eslint-disable-next-line prefer-const
                 let user: TUser = jwtDecode(token);
-                console.log({ user });
                 const userToken = {
                     user: {
                         email: user.email,
@@ -63,13 +60,13 @@ const Login = () => {
                 dispatch(setUser(userToken))
                 setLoading(false)
             } else if (res.error) {
-                console.log(res.error);
+
                 toast.update(toastId, { render: `${(res.error as any)?.data?.message}`, type: "error", isLoading: false, autoClose: 2000 })
                 setLoading(false)
             }
 
         } catch (error) {
-            console.log(error);
+
             toast.update(toastId, { render: `${(error as any)?.data?.message}`, type: "error", isLoading: false, autoClose: 2000 })
             setLoading(false)
         }

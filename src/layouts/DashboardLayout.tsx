@@ -49,7 +49,10 @@ const DashboardLayout = () => {
                                             <NavLink to="/dashboard/orders/annual" className="pl-2">Orders Management ANU.</NavLink>
                                         </li>
                                         <li>
-                                            <NavLink to="/dashboard/orders/delivery/pending" className="pl-2">Delivery Pending Orders</NavLink>
+                                            <NavLink to="/dashboard/orders/delivery/pending/publications" className="pl-2">Delivery Pending Publication</NavLink>
+                                        </li>
+                                        <li>
+                                            <NavLink to="/dashboard/orders/delivery/pending/annual" className="pl-2">Delivery Pending Annual</NavLink>
                                         </li>
                                     </ul>
                                 )

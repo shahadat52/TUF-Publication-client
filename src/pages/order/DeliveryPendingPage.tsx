@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import Loading from "../../components/Loading";
 import { TOrder } from "../../interface/order";
-import { useDeliveryPendingProductsQuery } from "../../redux/features/order/orderApi";
+import { useDeliveryPendingPUBProductsQuery } from "../../redux/features/order/orderApi";
 import OrderCard from "./OrderCard";
 import { useReactToPrint } from "react-to-print";
 import { IoMdPrint } from "react-icons/io";
@@ -70,7 +70,7 @@ const DeliveryPendingProductsPage = () => {
   const contentRef = useRef<HTMLDivElement>(null);
   const reactToPrintFn = useReactToPrint({ contentRef, documentTitle: '', pageStyle });
 
-  const { data, isLoading } = useDeliveryPendingProductsQuery({ startDate: formattedStartDate, endDate: formattedEndDate });
+  const { data, isLoading } = useDeliveryPendingPUBProductsQuery({ startDate: formattedStartDate, endDate: formattedEndDate });
   const orders = data?.data;
   if (isLoading) {
     return <Loading />

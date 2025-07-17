@@ -25,10 +25,11 @@ import NoticePopup from './components/NoticePopup.tsx'
 import NoticeManagementPage from './pages/notice/NoticeManagementPage.tsx'
 import NoticeHomePage from './pages/notice/NoticeHomePage.tsx'
 import BranchOrderPage from './pages/order/BranchOrderPage.tsx'
-import DeliveryPendingProductsPage from './pages/order/DeliveryPendingProductsPage.tsx'
+import DeliveryPendingProductsPage from './pages/order/DeliveryPendingPage.tsx'
 import AnnualOrdersPage from './pages/order/AnnualOrdersPage.tsx'
 import PrivateRoute from './Routes/PrivateRoute.tsx'
 import DashboardHomePage from './layouts/DashboardHomePage.tsx'
+import DeliveryPendingANUPage from './pages/order/DeliveryPendingANUPage.tsx'
 
 
 createRoot(document.getElementById('root')!).render(
@@ -56,7 +57,8 @@ createRoot(document.getElementById('root')!).render(
             <Route index element={<PrivateRoute><DashboardHomePage /></PrivateRoute>} /> {/* optional homepage */}
             <Route path="orders/publication" element={<PrivateRoute><PublicationOrdersPage /></PrivateRoute>} />
             <Route path="orders/annual" element={<PrivateRoute><AnnualOrdersPage /></PrivateRoute>} />
-            <Route path="orders/delivery/pending" element={<PrivateRoute><DeliveryPendingProductsPage /></PrivateRoute>} />
+            <Route path="orders/delivery/pending/publications" element={<PrivateRoute><DeliveryPendingProductsPage /></PrivateRoute>} />
+            <Route path="orders/delivery/pending/annual" element={<PrivateRoute><DeliveryPendingANUPage /></PrivateRoute>} />
             <Route path="order/branch/:id" element={<PrivateRoute><BranchOrderPage /></PrivateRoute>} />
             <Route path="products" element={<PrivateRoute><ProductManagementPage /></PrivateRoute>} />
             <Route path="notice" element={<PrivateRoute><NoticeManagementPage /></PrivateRoute>} />

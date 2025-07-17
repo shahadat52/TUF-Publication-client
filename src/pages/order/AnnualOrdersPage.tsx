@@ -159,7 +159,7 @@ const AnnualOrdersPage = () => {
 
           </table>
           <div
-            onClick={() => setLimit(500)}
+            onClick={() => setLimit(limit + 100)}
             className=' flex justify-center items-center my-2'>
             <button className='btn btn-accent '>See More</button>
           </div>
